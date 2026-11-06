@@ -66,28 +66,34 @@
 
 ## 快速开始
 
-### 1. 编译
+### 1. 编译 C#
 
 ```bash
 # 仓库根目录
-dotnet build SignalPlanner.sln
+dotnet build SignalPlanner.sln          # 4 个类库：SimCore / SimCore.Tests / MapExport / MapExport.Tests
+dotnet build Editor/Editor.csproj       # ★ 编辑器自己的 C# 桥（不在 sln 里，必须单独编）
 ```
 
-这一步编 4 个 C# 工程：`SimCore`（仿真核）、`SimCore.Tests`、`MapExport`（导出库）、`MapExport.Tests`。
+> **第二条不能漏。** `Editor.csproj` 是 Godot .NET 工程，不在解决方案里。
+> 不编它就直接开编辑器，会看到：
+> `Cannot instantiate C# script because the associated class could not be found. Script: 'res://scripts/EditorBridge.cs'`
+> —— 界面上一切正常，但**校验、冲突检测、导出全部失效**。
 
 ### 2. 打开编辑器
 
-用 **Godot .NET 版**打开 `Editor/project.godot`，按 `F5`。
-
+用 **Godot .NET 版**（项目管理器「导入」→ 选 `Editor/project.godot`）打开，按 `F5`。
 或者命令行：
 
 ```bash
-# 把路径换成你的 Godot .NET 版可执行文件
 "C:/Godot/Godot_v4.7.2-stable_mono_win64.exe" --path Editor
 ```
 
-> 首次打开 Godot 会导入资源（字体约 17 MB），要等一会儿。
-> `Editor` 工程会引用 `../SimCore` 和 `../Tools/MapExport`，**必须保持仓库的目录结构**。
+> **首次导入请跑两遍。** Godot 第一次扫描资源时 `class_name` 缓存还没建立，
+> 控制台会刷出一批 `Parse Error: Cannot infer the type of ...`。这是**正常的**：
+> 等它导完 → 关掉 → 再打开（或直接再跑一次等它导完），第二遍就 0 报错了。
+>
+> 首次导入要处理约 17 MB 字体，等一会儿。
+> `Editor` 工程引用 `../SimCore` 和 `../Tools/MapExport`，**必须保持仓库的目录结构**。
 
 ### 3. 跑测试
 
@@ -98,7 +104,14 @@ dotnet test Tools/MapExport.Tests/MapExport.Tests.csproj    # 64 条
 
 > 测试会读 `docs/examples/01-1-first-crossing.spmap`（唯一测试关卡资产），**别删**。
 
-### 4. 试一次完整流程
+### 4. 一键自检（可选）
+
+```bash
+./build.sh                                  # 只跑 C# 侧：build（警告即错误）+ test
+GODOT_BIN="/path/to/godot_console.exe" ./build.sh   # 追加两个 Godot 工程的 headless 打开自检
+```
+
+### 5. 试一次完整流程
 
 1. 打开编辑器 → `文件 → 打开…` → 选 `docs/examples/01-1-first-crossing.spmap`
 2. 按 `2` 进连接模式，点一下中间的路口，按 `G` 生成转向
