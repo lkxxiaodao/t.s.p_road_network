@@ -1,0 +1,90 @@
+{
+  "format_version": 1,
+  "meta": {
+    "name": "1-1 第一次通车",
+    "author": "signal-planner",
+    "chapter": 1,
+    "index": 1
+  },
+  "nodes": [
+    { "id": 0, "type": "Signalized", "x": 0, "y": 0 },
+    { "id": 1, "type": "Unsignalized", "x": 0, "y": -180 },
+    { "id": 2, "type": "Unsignalized", "x": 180, "y": 0 },
+    { "id": 3, "type": "Unsignalized", "x": 0, "y": 180 },
+    { "id": 4, "type": "Unsignalized", "x": -180, "y": 0 }
+  ],
+  "lanes": [
+    { "id": 0, "road": 1, "type": "Driving", "from_node": 1, "to_node": 0, "length": 180.0, "speed_limit": 13.89, "lane_index": 0 },
+    { "id": 1, "road": 2, "type": "Driving", "from_node": 2, "to_node": 0, "length": 180.0, "speed_limit": 13.89, "lane_index": 0 },
+    { "id": 2, "road": 3, "type": "Driving", "from_node": 3, "to_node": 0, "length": 180.0, "speed_limit": 13.89, "lane_index": 0 },
+    { "id": 3, "road": 4, "type": "Driving", "from_node": 4, "to_node": 0, "length": 180.0, "speed_limit": 13.89, "lane_index": 0 },
+    { "id": 4, "road": 1, "type": "Driving", "from_node": 0, "to_node": 1, "length": 180.0, "speed_limit": 13.89, "lane_index": 0 },
+    { "id": 5, "road": 2, "type": "Driving", "from_node": 0, "to_node": 2, "length": 180.0, "speed_limit": 13.89, "lane_index": 0 },
+    { "id": 6, "road": 3, "type": "Driving", "from_node": 0, "to_node": 3, "length": 180.0, "speed_limit": 13.89, "lane_index": 0 },
+    { "id": 7, "road": 4, "type": "Driving", "from_node": 0, "to_node": 4, "length": 180.0, "speed_limit": 13.89, "lane_index": 0 },
+    { "id": 8, "road": 1, "type": "Sidewalk", "from_node": 1, "to_node": 0, "length": 180.0, "speed_limit": 1.4, "lane_index": 0 },
+    { "id": 9, "road": 2, "type": "Sidewalk", "from_node": 2, "to_node": 0, "length": 180.0, "speed_limit": 1.4, "lane_index": 0 },
+    { "id": 10, "road": 3, "type": "Sidewalk", "from_node": 3, "to_node": 0, "length": 180.0, "speed_limit": 1.4, "lane_index": 0 },
+    { "id": 11, "road": 4, "type": "Sidewalk", "from_node": 4, "to_node": 0, "length": 180.0, "speed_limit": 1.4, "lane_index": 0 },
+    { "id": 12, "road": 1, "type": "Sidewalk", "from_node": 0, "to_node": 1, "length": 180.0, "speed_limit": 1.4, "lane_index": 0 },
+    { "id": 13, "road": 2, "type": "Sidewalk", "from_node": 0, "to_node": 2, "length": 180.0, "speed_limit": 1.4, "lane_index": 0 },
+    { "id": 14, "road": 3, "type": "Sidewalk", "from_node": 0, "to_node": 3, "length": 180.0, "speed_limit": 1.4, "lane_index": 0 },
+    { "id": 15, "road": 4, "type": "Sidewalk", "from_node": 0, "to_node": 4, "length": 180.0, "speed_limit": 1.4, "lane_index": 0 },
+    { "id": 16, "road": 1, "type": "Biking", "from_node": 1, "to_node": 0, "length": 180.0, "speed_limit": 5.0, "lane_index": 0 },
+    { "id": 17, "road": 2, "type": "Biking", "from_node": 2, "to_node": 0, "length": 180.0, "speed_limit": 5.0, "lane_index": 0 },
+    { "id": 18, "road": 1, "type": "Biking", "from_node": 0, "to_node": 1, "length": 180.0, "speed_limit": 5.0, "lane_index": 0 },
+    { "id": 19, "road": 2, "type": "Biking", "from_node": 0, "to_node": 2, "length": 180.0, "speed_limit": 5.0, "lane_index": 0 }
+  ],
+  "turns": [
+    { "id": 0, "src_lane": 0, "dst_lane": 6, "node": 0, "type": "Straight" },
+    { "id": 1, "src_lane": 1, "dst_lane": 7, "node": 0, "type": "Straight" },
+    { "id": 2, "src_lane": 2, "dst_lane": 4, "node": 0, "type": "Straight" },
+    { "id": 3, "src_lane": 3, "dst_lane": 5, "node": 0, "type": "Straight" },
+    { "id": 4, "src_lane": 16, "dst_lane": 18, "node": 0, "type": "Straight" },
+    { "id": 5, "src_lane": 17, "dst_lane": 19, "node": 0, "type": "Straight" },
+    { "id": 6, "src_lane": 8, "dst_lane": 14, "node": 0, "type": "Crosswalk" },
+    { "id": 7, "src_lane": 9, "dst_lane": 15, "node": 0, "type": "Crosswalk" },
+    { "id": 8, "src_lane": 10, "dst_lane": 12, "node": 0, "type": "Crosswalk" },
+    { "id": 9, "src_lane": 11, "dst_lane": 13, "node": 0, "type": "Crosswalk" }
+  ],
+  "signals": [
+    {
+      "node": 0,
+      "offset": 0.0,
+      "plans": [
+        {
+          "start_time": 0.0,
+          "stages": [
+            { "protected": [0, 2, 4], "permitted": [6, 8], "type": "Fixed", "duration": 30.0 },
+            { "protected": [1, 3, 5], "permitted": [7, 9], "type": "Fixed", "duration": 30.0 }
+          ]
+        }
+      ]
+    }
+  ],
+  "demand": [
+    { "lane": 0, "time_points": [0.0, 600.0], "flow_rates": [0.1, 0.12] },
+    { "lane": 1, "time_points": [0.0, 600.0], "flow_rates": [0.1, 0.12] },
+    { "lane": 2, "time_points": [0.0, 600.0], "flow_rates": [0.08, 0.1] },
+    { "lane": 3, "time_points": [0.0, 600.0], "flow_rates": [0.08, 0.1] }
+  ],
+  "pedestrians": [
+    { "crosswalk_turn": 6, "time_points": [0.0, 600.0], "flow_rates": [0.05, 0.05] },
+    { "crosswalk_turn": 8, "time_points": [0.0, 600.0], "flow_rates": [0.05, 0.06] }
+  ],
+  "bicycles": [
+    { "lane": 16, "mode": "Independent", "time_points": [0.0, 600.0], "flow_rates": [0.03, 0.04] },
+    { "lane": 17, "mode": "Independent", "time_points": [0.0, 600.0], "flow_rates": [0.03, 0.04] }
+  ],
+  "game_rules": {
+    "anchors": {
+      "R": [0.8, 1.0],
+      "D": [60.0, 20.0],
+      "P": [2.5, 1.2],
+      "Q": [1.0, 0.5]
+    },
+    "weights": { "R": 0.4, "D": 0.2, "P": 0.2, "Q": 0.2 },
+    "events": [],
+    "tutorial": []
+  }
+}

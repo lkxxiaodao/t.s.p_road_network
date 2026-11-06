@@ -1,0 +1,152 @@
+[gd_scene load_steps=17 format=3 uid="uid://dqhpptsgaut7u"]
+
+[ext_resource type="Script" uid="uid://8xyvriu5vnfl" path="res://scripts/EditorBridge.cs" id="1_c01mt"]
+[ext_resource type="PackedScene" uid="uid://c5jgvf21ic88u" path="res://scenes/GridCanvas.tscn" id="1_elqb8"]
+[ext_resource type="Script" uid="uid://bx02pqoqx6qhy" path="res://scripts/editor_camera.gd" id="2_0bbpv"]
+[ext_resource type="Script" uid="uid://cj211ucajby8n" path="res://scripts/basemap_layer.gd" id="2_jlsqs"]
+[ext_resource type="Script" path="res://scripts/shell/top_bar.gd" id="3_topbar"]
+[ext_resource type="Script" path="res://scripts/shell/tool_rail.gd" id="3_rail"]
+[ext_resource type="Script" path="res://scripts/shell/hint_bar.gd" id="3_hint"]
+[ext_resource type="Script" uid="uid://cmukhieogoklv" path="res://scripts/status_bar.gd" id="4_rarhs"]
+[ext_resource type="Script" uid="uid://cfyf5q7ww4rcr" path="res://scripts/property_panel.gd" id="5_vcsgt"]
+[ext_resource type="Script" uid="uid://b6s2cnnibdff7" path="res://scripts/deco_palette.gd" id="7_nxtc6"]
+[ext_resource type="Script" uid="uid://dfmgbqr4e08im" path="res://scripts/outline_panel.gd" id="9_q8u5g"]
+[ext_resource type="Script" path="res://scripts/MapExportBridge.cs" id="14_mapexp"]
+[ext_resource type="Script" uid="uid://cfxyc10x5csn7" path="res://scripts/help_panel.gd" id="10_hpanl"]
+[ext_resource type="Script" path="res://ui/dock.gd" id="11_dock"]
+[ext_resource type="Script" path="res://ui/context_bar.gd" id="12_ctx"]
+[ext_resource type="Script" path="res://ui/float_window.gd" id="13_float"]
+[ext_resource type="Script" path="res://ui/toast.gd" id="14_toast"]
+[ext_resource type="Script" path="res://ui/validation_drawer.gd" id="15_vdrawer"]
+
+[node name="Main" type="Control" unique_id=1815467454]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="GridCanvas" parent="." unique_id=1911470949 instance=ExtResource("1_elqb8")]
+
+[node name="BasemapLayer" type="Node2D" parent="GridCanvas" unique_id=1697969173]
+script = ExtResource("2_jlsqs")
+
+[node name="EditorCamera" type="Camera2D" parent="." unique_id=1933074924]
+script = ExtResource("2_0bbpv")
+
+[node name="EditorBridge" type="Node" parent="." unique_id=1905301467]
+script = ExtResource("1_c01mt")
+
+[node name="MapExportBridge" type="Node" parent="." unique_id=1905301468]
+script = ExtResource("14_mapexp")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1478689454]
+
+[node name="TopBar" type="Control" parent="CanvasLayer" unique_id=1100101]
+anchor_right = 1.0
+offset_bottom = 76.0
+grow_horizontal = 2
+script = ExtResource("3_topbar")
+
+[node name="ToolRail" type="Control" parent="CanvasLayer" unique_id=1100102]
+anchor_bottom = 1.0
+offset_top = 76.0
+offset_right = 68.0
+offset_bottom = -42.0
+grow_vertical = 2
+script = ExtResource("3_rail")
+
+[node name="HintBar" type="Control" parent="CanvasLayer" unique_id=1100103]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 80.0
+offset_top = -78.0
+offset_right = -396.0
+offset_bottom = -46.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("3_hint")
+
+[node name="StatusBar" type="Control" parent="CanvasLayer" unique_id=1045223761]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -42.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("4_rarhs")
+
+[node name="ContextBar" type="Control" parent="CanvasLayer" unique_id=1100104]
+anchor_right = 1.0
+offset_left = 138.0
+offset_top = 88.0
+offset_right = -396.0
+offset_bottom = 140.0
+grow_horizontal = 2
+mouse_filter = 1
+script = ExtResource("12_ctx")
+
+[node name="Dock" type="Control" parent="CanvasLayer" unique_id=1100105]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -380.0
+offset_top = 76.0
+offset_bottom = -42.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("11_dock")
+
+[node name="PropertyPanel" type="VBoxContainer" parent="CanvasLayer/Dock" unique_id=656149614]
+layout_mode = 0
+script = ExtResource("5_vcsgt")
+
+[node name="OutlinePanel" type="PanelContainer" parent="CanvasLayer/Dock" unique_id=926482147]
+layout_mode = 0
+script = ExtResource("9_q8u5g")
+
+[node name="DecoFloat" type="PanelContainer" parent="CanvasLayer" unique_id=1100106]
+offset_left = 160.0
+offset_top = 260.0
+offset_right = 400.0
+offset_bottom = 620.0
+mouse_filter = 1
+script = ExtResource("13_float")
+title = "装饰素材"
+only_mode = 3
+
+[node name="DecoPalette" type="PanelContainer" parent="CanvasLayer/DecoFloat" unique_id=1618717942]
+layout_mode = 0
+script = ExtResource("7_nxtc6")
+
+[node name="Toast" type="Control" parent="CanvasLayer" unique_id=1100107]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("14_toast")
+
+[node name="ValidationDrawer" type="PanelContainer" parent="CanvasLayer" unique_id=1100108]
+offset_left = 120.0
+offset_top = 240.0
+offset_right = 540.0
+offset_bottom = 660.0
+mouse_filter = 1
+script = ExtResource("15_vdrawer")
+title = "校验问题"
+closable = true
+default_on_left = false
+
+[node name="HelpPanel" type="Control" parent="CanvasLayer" unique_id=45647482]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("10_hpanl")

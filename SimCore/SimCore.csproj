@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    SimCore —— 《信号规划师》仿真核（纯 C# 类库）
+    依据：技术方案03 §1.3 工程结构 / §1.5 铁律（1）（2）
+    约束：
+      * 目标框架 net8.0（本任务追加约束）。
+      * 【零 Godot 依赖】不引用 GodotSharp / Godot.NET.Sdk，源码内不得出现 Godot 命名空间。
+      * 【零第三方依赖】本项目不含任何 <PackageReference>。
+  -->
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>SimCore</AssemblyName>
+    <RootNamespace>SimCore</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+
+    <!-- 验收标准 a) 要求 "dotnet build 无警告"：把警告升级为错误，禁掉"有警告也算过"。 -->
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+
+    <!-- 确定性构建（与铁律 2 的确定性目标一致）。 -->
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+
+</Project>

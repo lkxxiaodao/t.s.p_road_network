@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/EditorBridge.cs" id="1_eb"]
+[ext_resource type="Script" path="res://scripts/MapExportBridge.cs" id="2_meb"]
+[ext_resource type="Script" path="res://qa/qa_s6.gd" id="3_qa"]
+
+[node name="QAS6" type="Node"]
+script = ExtResource("3_qa")
+
+[node name="EditorBridge" type="Node" parent="."]
+script = ExtResource("1_eb")
+
+[node name="MapExportBridge" type="Node" parent="."]
+script = ExtResource("2_meb")

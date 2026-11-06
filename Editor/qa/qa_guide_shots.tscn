@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/EditorBridge.cs" id="1_eb"]
+[ext_resource type="Script" path="res://qa/qa_guide_shots.gd" id="2_qa"]
+
+[node name="QAGuideShots" type="Node"]
+script = ExtResource("2_qa")
+
+[node name="EditorBridge" type="Node" parent="."]
+script = ExtResource("1_eb")

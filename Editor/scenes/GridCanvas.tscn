@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://c5jgvf21ic88u"]
+
+[ext_resource type="Script" uid="uid://cbjkqres4tymg" path="res://scripts/grid_canvas.gd" id="1_4pdtq"]
+[ext_resource type="Script" uid="uid://ctqchydx1amsh" path="res://scripts/road_layer.gd" id="2_jjx3a"]
+[ext_resource type="Script" uid="uid://bfpxshoma2xne" path="res://scripts/deco_layer.gd" id="3_o0gsg"]
+
+[node name="GridCanvas" type="Node2D" unique_id=1911470949]
+script = ExtResource("1_4pdtq")
+
+[node name="RoadLayer" type="Node2D" parent="." unique_id=237794211]
+script = ExtResource("2_jjx3a")
+
+[node name="DecoLayer" type="Node2D" parent="." unique_id=335134632]
+script = ExtResource("3_o0gsg")

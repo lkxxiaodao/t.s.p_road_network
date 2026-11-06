@@ -1,0 +1,25 @@
+<Project Sdk="Godot.NET.Sdk/4.7.2">
+
+  <!--
+    Editor —— 《信号规划师》地图编辑器（Godot 4.7 .NET 工程）。
+    依据：技术方案03 §1.3 工程结构。
+    表现层用 GDScript（绘制交互 / 校验提示），此处仅建立可编译的工程骨架；
+    几何 / 转向 / 相位 / 校验的推导一律调用 SimCore，编辑器内不得重复实现（T4.2）。
+    与 Game 共享同一份 SimCore 源码（§1.3 同源）。
+  -->
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>SignalPlanner.Editor</RootNamespace>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- 同源：与 Game 共用同一份 SimCore 源码（非 dll 拷贝）。 -->
+    <ProjectReference Include="../SimCore/SimCore.csproj" />
+    <!-- 外部格式导出库（.spmap → xodr/osm/shp/net.xml）。 -->
+    <ProjectReference Include="../Tools/MapExport/MapExport.csproj" />
+  </ItemGroup>
+
+</Project>
