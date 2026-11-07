@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="kVYPU8Wx7HXjoVHaB4xLv0" style=""><head data-page-node-id="0JxpW0j02nwWKTQ8Xai6ud">
+<meta charset="utf-8" data-page-node-id="oc77YBMIFlHPtxBfvvXca3">
+<meta name="viewport" content="width=device-width, initial-scale=1" data-page-node-id="3JmqSTp76ETcpidttCIzXC">
+<title data-page-node-id="T1rq6ACvmeDGnuOs0pFXsy">路网编辑器 · 上手手册（v0.1.0）</title>
+<style data-page-node-id="hdf4biSo2ib3F3B4G9mZ2C">
+  :root{
+    --ink:#3D3630; --ink2:#6C6055; --ink3:#95887A;
+    --paper:#FFFDF9; --cream:#F4EFE8; --line:#E6DED2; --line2:#EFE8DE;
+    --orange:#F58F3C; --orange-d:#C25F1C; --orange-l:#FFF3E4;
+    --red:#E2564A; --red-l:#FDF0EE; --green:#2F7A52;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:#EDE7DE; color:var(--ink);
+    font:15px/1.75 "Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+  }
+  .page{max-width:920px; margin:0 auto; background:var(--paper); padding:54px 62px 72px;
+        box-shadow:0 2px 28px rgba(120,90,60,.14)}
+
+  /* 封面 */
+  .cover{padding:6px 0 24px; border-bottom:3px solid var(--ink); margin-bottom:22px}
+  .mark{display:inline-block; font:600 12px/1 ui-monospace,Consolas,monospace; letter-spacing:.28em;
+        color:var(--orange-d); border:1px solid var(--orange); border-radius:999px; padding:7px 13px 6px}
+  .cover h1{font-size:36px; line-height:1.16; margin:16px 0 6px}
+  .cover .sub{font-size:18px; color:var(--ink2); margin:0}
+  .cover .sub2{font-size:13px; color:var(--ink3); margin:10px 0 0}
+
+  /* 路线表（本版新增：先说清看哪几章） */
+  .routes{margin:22px 0 6px; border:2px solid var(--orange); border-radius:12px; overflow:hidden; background:#fff}
+  .routes .rt-head{background:var(--orange); color:#fff; font-weight:600; font-size:14px;
+                   letter-spacing:.06em; padding:10px 18px}
+  .routes table{margin:0; font-size:13.5px}
+  .routes td{border-bottom:1px solid var(--line2); padding:11px 18px}
+  .routes tr:last-child td{border-bottom:0}
+  .routes td:first-child{width:38%; font-weight:600; color:var(--orange-d)}
+  .routes .ch{font:600 12.5px/1.5 ui-monospace,Consolas,monospace; color:var(--ink);
+              background:var(--orange-l); border-radius:5px; padding:1px 7px; margin-right:3px; white-space:nowrap}
+
+  /* 目录 */
+  .toc{border:1px solid var(--line); border-radius:10px; padding:14px 20px; background:var(--cream); margin:22px 0 8px}
+  .toc h2{margin:0 0 8px; font-size:14px; letter-spacing:.14em; color:var(--ink2); border:0; padding:0}
+  .toc-grid{display:grid; grid-template-columns:1fr 1fr; gap:0 28px; font-size:13px}
+  .toc-grid a{color:var(--ink); text-decoration:none; display:flex; gap:9px; padding:2px 0}
+  .toc-grid a:hover{color:var(--orange-d)}
+  .toc-grid .n{color:var(--orange-d); font:600 12px/1.7 ui-monospace,Consolas,monospace; min-width:20px}
+  .toc-part{grid-column:1/-1; margin:10px 0 2px; font-size:12px; letter-spacing:.14em; color:var(--ink3)}
+  .toc-part:first-child{margin-top:0}
+
+  h1,h2,h3,h4{line-height:1.35}
+  .chap{margin:0 0 6px; padding-top:12px}
+  .chap-head{display:flex; gap:14px; align-items:baseline; border-bottom:2px solid var(--ink);
+             padding-bottom:9px; margin-bottom:16px}
+  .chap-head .no{font:600 28px/1 ui-monospace,Consolas,monospace; color:var(--orange)}
+  .chap-head h2{font-size:23px; margin:0}
+  .chap-head .say{margin:0; color:var(--ink3); font-size:13px}
+  h3{font-size:17px; margin:26px 0 6px; color:var(--orange-d)}
+  h4{font-size:15px; margin:16px 0 4px}
+  p{margin:9px 0}
+  ul,ol{margin:9px 0; padding-left:22px}
+  li{margin:4px 0}
+  code{font:13px/1.5 ui-monospace,Consolas,monospace; background:var(--cream); border:1px solid var(--line2);
+       border-radius:4px; padding:1px 5px; color:var(--orange-d); white-space:nowrap}
+  kbd{font:12.5px/1.4 ui-monospace,Consolas,monospace; background:#fff; border:1px solid #D9CDBD;
+      border-bottom-width:2px; border-radius:5px; padding:1px 6px; white-space:nowrap}
+  b,strong{font-weight:600}
+
+  table{width:100%; border-collapse:collapse; font-size:13.5px; margin:12px 0 16px}
+  th{background:var(--cream); text-align:left; font-weight:600; color:var(--ink2);
+     padding:8px 10px; border-bottom:1px solid var(--line)}
+  td{padding:8px 10px; border-bottom:1px solid var(--line2); vertical-align:top}
+  tbody tr:nth-child(even) td{background:#FCF9F4}
+  td.c,th.c{text-align:center}
+  td.n{color:var(--ink3); white-space:nowrap}
+  .muted{color:var(--ink3); font-size:13px}
+
+  /* 截图 */
+  figure{margin:20px 0}
+  figure img{width:100%; height:auto; display:block; border:1px solid var(--line); border-radius:10px;
+             background:var(--paper)}
+  figure.dock img{max-width:540px; margin:0 auto}
+  figure.dlg img{max-width:620px; margin:0 auto}
+  figcaption{font-size:12.5px; color:var(--ink3); margin-top:7px; text-align:center}
+
+  /* 提示框 */
+  .box{border-left:4px solid var(--line); background:var(--cream); border-radius:0 8px 8px 0;
+       padding:11px 15px; margin:15px 0; font-size:14px}
+  .box .t{display:block; font-weight:600; margin-bottom:2px}
+  .box p:last-child,.box ul:last-child,.box ol:last-child{margin-bottom:0}
+  .box.tip{background:var(--orange-l); border-color:var(--orange)} .box.tip .t{color:var(--orange-d)}
+  .box.warn{background:var(--red-l); border-color:var(--red)} .box.warn .t{color:var(--red)}
+  .box.ok{background:#EDF6F1; border-color:var(--green)} .box.ok .t{color:var(--green)}
+
+  /* 步骤 */
+  ol.steps{list-style:none; counter-reset:s; padding-left:0; margin:14px 0}
+  ol.steps>li{counter-increment:s; position:relative; padding-left:38px; margin:12px 0}
+  ol.steps>li:before{content:counter(s); position:absolute; left:0; top:2px;
+    font:600 12px/22px ui-monospace,Consolas,monospace; color:#fff; background:var(--orange);
+    width:23px; height:22px; text-align:center; border-radius:6px}
+  ol.steps>li>b:first-child{color:var(--orange-d)}
+
+  .lead{font-size:15px; color:var(--ink2); margin:0 0 4px}
+  hr.soft{border:0; border-top:1px solid var(--line2); margin:24px 0}
+  .part{page-break-before:always; padding:44px 0 6px; border-bottom:1px solid var(--line); margin:34px 0 22px}
+  .part .kicker{font:600 12px/1 ui-monospace,Consolas,monospace; letter-spacing:.3em; color:var(--orange-d)}
+  .part h1{font-size:30px; margin:14px 0 6px}
+  .part p{margin:0; color:var(--ink2)}
+  .backtop{position:fixed; right:24px; bottom:24px; z-index:9; font-size:12px; text-decoration:none;
+           color:var(--ink2); background:#fff; border:1px solid var(--line); padding:8px 13px; border-radius:999px}
+</style>
+<style id="__dm_no_drag_style__" data-page-node-id="ewuz04yYYK8xeCt0AhIgLf">* { -webkit-user-drag: none !important; }</style><style id="__dm_bindable_badge_style__" data-page-node-id="6IJgAmIvU00VHjCecHfbzz">[data-sp-bindable="database"]{outline:1px dashed #0088ff;outline-offset:2px;border-radius:4px;}[data-sp-bindable="database"] *{pointer-events:none !important;transition:none !important;animation:none !important;}[data-sp-bindable="database"]{transition:none !important;animation:none !important;}</style></head>
+<body data-page-node-id="yUsDLsxFUo0xuGnw6nWUJV" style="">
+<div class="page" id="top" data-page-node-id="j9ZtwoN69k3vBrzzOgQhj2">
+
+<!-- ══════════ 封面 ══════════ -->
+<header class="cover" data-page-node-id="0yN4b5cGWqwVZGGm3CYiRw">
+  <span class="mark" data-page-node-id="4ffOaX4GNOVI0fAKGdNEIh">L U W A N G &nbsp; E D I T O R</span>
+  <h1 data-page-node-id="CFYlvUqVVtdd4t7OjNNoOM">路网编辑器<br data-page-node-id="d8P432fNBgs9IIAwpmjUmQ">上手手册</h1>
+  <p class="sub" data-page-node-id="SHrxSNU0cRJGBWGJn8bn3U" style="">画路、配信号、配车流​</p>
+  <p class="sub2" data-page-node-id="r5kXB5h31HeKXKeVFJGF1i" style="">v1.0.0 ​</p>
+</header>
+
+<!-- ══════════ 先读这个 ══════════ -->
+<div class="routes" data-page-node-id="oJKoLCXiXKS9KlH73YvSCS" style="">
+  <div class="rt-head" data-page-node-id="THTX7kMEE0wKYgWn9WCQ1S">先看这里 —— 你该读哪几章</div>
+  <table data-page-node-id="rrBhcA7R91ZH8veu8iKYlt">
+    <tbody data-page-node-id="nHU07TqAQp9Ran1dVRpYAC"><tr data-page-node-id="wf8RC1sfpZxmF4AcF7SXCS">
+      <td data-page-node-id="STC6BauNt1dOs3FuCOzkCt">只用基础版<br data-page-node-id="HKIVV39JFLL4ZqD8Tgb0mr"><span class="muted" data-page-node-id="ceLbHocfUZ4RPxvoqbTdmO">画路 → 配信号 → 导出给游戏</span></td>
+      <td data-page-node-id="TBUESDUQW9UiWfwoaGtnYG">
+        <span class="ch" data-page-node-id="t55sfhX3jq6CWbZI8eeE6b">1</span><span class="ch" data-page-node-id="R9dipeG47IRiOcYZG1lea3">2</span><span class="ch" data-page-node-id="ZZJUS0hFWWf6t3rBnlsxCe">3</span><span class="ch" data-page-node-id="EAXqEITsFV52EbE9yjxsdV">4</span><span class="ch" data-page-node-id="m7zfvkkOw7rQJWXfrmCwhF">5</span><span class="ch" data-page-node-id="mekrWcgB5RnoWUPe2OjMeU">6</span><span class="ch" data-page-node-id="qvs8nxm9Y6YojDQCY6400T">7</span><br data-page-node-id="U26qkDW5lV9iULOoMo5AHu">
+        <span class="muted" data-page-node-id="gcKwpeqEG4XKVaTogJPzgY">看完就能画出一张能导出、能进游戏的关卡。第 8 章以后不用看。</span>
+      </td>
+    </tr>
+    <tr data-page-node-id="ajMxOLTtT2mtLbdtySsSKJ">
+      <td data-page-node-id="rj026sLF0dMwOIP1tmjQLk">要跑 SUMO 仿真<br data-page-node-id="zV9o9s1hUj0jG6K0qYnzxy"><span class="muted" data-page-node-id="9rYUjdEdVtXcipitsne2ka">专业版：逐灯位配时 / 车流车型 / 一键试跑</span></td>
+      <td data-page-node-id="PTUjmobxCOQwJoavVOljBN">
+        <span class="ch" data-page-node-id="hcdr3dOkrUFykl4g4PD3oW">1</span><span class="ch" data-page-node-id="6pNWyyYwRYESr5EmpnuAEl">2</span><span class="ch" data-page-node-id="O842GwWviH4BBiH8WYUvGr">3</span><span class="ch" data-page-node-id="helvBBahkr4P233v2GXJYU">4</span><span class="ch" data-page-node-id="S87kQcmD7rJORq6Dn4OQ1v">5</span><span class="ch" data-page-node-id="ZmW6LCWQQ4U1RFLapt7DHS">6</span><span class="ch" data-page-node-id="2WMRqopVRN9FGoRSLGkC3Q">7</span><span class="ch" data-page-node-id="13IBAxGFPIWliLWU94USoK">8</span><span class="ch" data-page-node-id="Ao0XPb2Cz7pVo1tfaNWOI1">9</span><span class="ch" data-page-node-id="DfKO1JEsT84s61BseAx5Pe">10</span><br data-page-node-id="F72Z0N6LVqMafmmRv1fWFx">
+        <span class="muted" data-page-node-id="d27BAs8uEDXCmD75exCNap">前 7 章是基础，必须看；专业模式的部分是第 8~10 章。</span>
+      </td>
+    </tr>
+    <tr data-page-node-id="JWHnd7TXO9IcO8GPuHkxk9">
+      <td data-page-node-id="lQGs4kBzJMH7kghPo00Cef">只想搞懂「一张关卡该有什么」<br data-page-node-id="0fHxfDpwTaGqbkCroFCGCo"><span class="muted" data-page-node-id="sn9Uwy4psSNYOArUVpahN9">策划 / 设计视角，不碰软件</span></td>
+      <td data-page-node-id="hHy1w08PJXcGkHhIn9GluH">
+        <a href="#appendix-a" style="color:var(--ink)" data-page-node-id="HBHVWCw7vMmxtD4o7EskTx">附录 A</a>
+        <span class="muted" data-page-node-id="nHyEjYv7JX5YAO2oACxFfj">（关卡组成、评分、事件）</span>
+      </td>
+    </tr>
+  </tbody></table>
+</div>
+
+<!-- ══════════ 目录 ══════════ -->
+<div class="toc" data-page-node-id="2wCc4wdrsjy0YwRi56glEm">
+  <h2 data-page-node-id="d6gNVm40p4Dq6Uuqmhuaaf">目 录</h2>
+  <div class="toc-grid" data-page-node-id="LIWT4lfdIarYxIuP4RLGkv">
+    <div class="toc-part" data-page-node-id="u20gedKpyjk0KVQAwSIpu2">基础版（所有人）</div>
+    <a href="#c1" data-page-node-id="djHpn0arGTNBAnDrIk0UMQ"><span class="n" data-page-node-id="1sp5qu17EKfqNx9LDSDEcB">01</span>装好它：三个东西必须在一起</a>
+    <a href="#c2" data-page-node-id="W9mAwEe78iBpODGp6CP0It"><span class="n" data-page-node-id="DcalvX9Qr0oMx37zEkBKIp">02</span>界面认全</a>
+    <a href="#c3" data-page-node-id="lGyFsMkFF9RvainET0NQ2T"><span class="n" data-page-node-id="7rXZ55pYZ2K8flArPjwAuu">03</span>画第一条路</a>
+    <a href="#c4" data-page-node-id="JoMIgx6LUUFKIkd9lf8o4U"><span class="n" data-page-node-id="yG2dQo7y5BpxPJN82BDR8l">04</span>做路口、生成连接</a>
+    <a href="#c5" data-page-node-id="0GzrteXFp7XrvSVBu08QLl"><span class="n" data-page-node-id="mO726eBWy3IIvaBFFJhig4">05</span>配信号</a>
+    <a href="#c6" data-page-node-id="FUNf6DyKEP0KrdXUI1dBJD"><span class="n" data-page-node-id="iN42OVTUkMF224D5s6WlSF">06</span>配车流</a>
+    <a href="#c7" data-page-node-id="R9ckyfZe3tvuVPnsIRI8H5"><span class="n" data-page-node-id="Dip40F2sKbSJa6F0Vz4IGY">07</span>保存、校验、导出</a>
+    <div class="toc-part" data-page-node-id="i1cWKEJaOJPKEzxpx5oj7l">专业版（要跑 SUMO 的人）</div>
+    <a href="#c8" data-page-node-id="MTq12zU8IL6toRNrhceZUI"><span class="n" data-page-node-id="ltWelYzHOK1WPPQjvrwh9i">08</span>切到专业模式</a>
+    <a href="#c9" data-page-node-id="3tH2u9ZuL6VafqhJXfHmix"><span class="n" data-page-node-id="tetaHp4hh84ju41iIoQeZm">09</span>逐灯位配时 / 车型 / 设施</a>
+    <a href="#c10" data-page-node-id="OPZXtD80CwCsp742vJK7Jk"><span class="n" data-page-node-id="AbH8G8YdvtJzjTY3wyM98b">10</span>试跑与体检</a>
+    <div class="toc-part" data-page-node-id="ancvBHkL9rhHwAxsS4p4MF">附录</div>
+    <a href="#appendix-a" data-page-node-id="TKlwkA8FJoJEvosC9tj77a"><span class="n" data-page-node-id="fKFFULt0EoWWmnSxVoUJeE">A</span>一张关卡该有什么</a>
+    <a href="#appendix-b" data-page-node-id="4JCczeI49YDOO7nXRin1rw"><span class="n" data-page-node-id="Sp9Lw6C5Dgbn7SfGgHu2uc">B</span>快捷键</a>
+    <a href="#appendix-c" data-page-node-id="8IfgMKEaFKfFcvmoMoTTqI"><span class="n" data-page-node-id="HnWeohBF66pX8RS8e3liUE">C</span>出问题了先看这里</a>
+  </div>
+</div>
+
+<hr class="soft" data-page-node-id="yTmSeo8pR2kE5zoFQBmZ5y" style="">
+
+<!-- ══════════ 01 ══════════ -->
+<div class="chap" id="c1" data-page-node-id="GqRoi248YEZ2WTxvZtSBlL">
+  <div class="chap-head" data-page-node-id="MFwQiV2f1FMiiu68SagaZU"><span class="no" data-page-node-id="cXNOUvffCaAAWPCDws8P78">01</span>
+    <div data-page-node-id="AUrs8Z04hqFrncCSeDfDUx"><h2 data-page-node-id="MqVaZb9RFSreT5XAkLIOBD">装好它：三个东西必须在一起</h2>
+    </div>
+  </div>
+
+  <p class="lead" data-page-node-id="ejdMBu7KDyc6kIN4azdhul">把压缩包解压到任意文件夹，里面是这样：</p>
+
+<pre style="font: 12.5px / 1.7 ui-monospace, Consolas, monospace; background: var(--cream); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; overflow-x: auto;" data-page-node-id="TA5PRnJo2Pn3geB25zpW4P">路网编辑器\
+├─ 信号规划师 · 地图编辑器.exe     ← 双击这个
+├─ …console.exe                   ← 一样能开，会多一个黑框（排错用）
+├─ data_Editor_windows_x86_64\    ← 运行库，别删、别单独移动
+└─ assets\deco\                   ← 装饰素材（第一次打开会自动建）</pre>
+
+  <div class="box warn" data-page-node-id="PziUj0wF2x6SL5HBmrtOZ7">
+    <span class="t" data-page-node-id="fXaDzXKmEOazCRubaxkgtU">三条不能违反的</span>
+    <ul data-page-node-id="s8qPVnLg847kyPaeNYORKB">
+      <li data-page-node-id="EudCMOdBDvceHrDrkmkSVk"><b data-page-node-id="LnayXFl4TbyLD2b9SFVrfG">整个文件夹一起拷</b>。只拷 exe 出去打不开（它要靠旁边的 <code data-page-node-id="bF8NJ21MbaA0YExSnm56f8">data_…</code> 文件夹）。</li>
+      <li data-page-node-id="OFngotJbGtS3svz9DlIWo1"><b data-page-node-id="GbRHCGgbzly35sqAOq0jNm">别改文件夹名</b>，也别把 exe 拖到桌面。</li>
+      <li data-page-node-id="ezZReZN45Fms3W4yjcqMD1">路径里可以有中文和空格，没问题。</li>
+    </ul>
+  </div>
+
+  <h3 data-page-node-id="Nti0vUrgNUbJIjvKaKCQvO">想要装饰素材（树、房子、路牌）</h3>
+  <p data-page-node-id="useAIKccaB6UR37FxVHrZh">把 PNG 图片丢进 <code data-page-node-id="xDet7iOh9dxErkepbnYYAp">assets\deco\</code>，文件名按 <code data-page-node-id="atzDUu9J8ECUqtjlvmCh2V">分组_种类.png</code> 取名（例：<code data-page-node-id="EIVpegrYRi1AwaBjoATQiV">tree_oak.png</code>），
+  打开软件就在「装饰」模式里能看到，同分组的会归到一起。图片要<b data-page-node-id="TgyJu85i37w5D1h4i1zj3C">透明背景的 PNG</b>，不要 JPG。</p>
+</div>
+
+<!-- ══════════ 02 ══════════ -->
+<div class="chap" id="c2" data-page-node-id="vCJmWp6nihNfp8RwsNt1IE">
+  <div class="chap-head" data-page-node-id="kCWuG9w7I0kwlMzBXENE8S"><span class="no" data-page-node-id="19cdgaL1BzXOQxzRVZ5HpI">02</span>
+    <div data-page-node-id="XSPmrh8z9BZlh2FZ9gt0Id"><h2 data-page-node-id="VcVCsPcOKdET5bta9NcMYi" style="white-space: pre-wrap;">界面预览​</h2>
+    <p class="say" data-page-node-id="ISHgq33h3bx4jikvfw6pnT">只有五块地方，认一遍就够了。</p></div>
+  </div>
+
+  <figure data-page-node-id="8CGc8dssbc3OfzSrv6Cto8">
+    <img src="img/b1-界面总览.png" alt="编辑器界面总览" data-page-node-id="z39h49mlDpl8NcS1CtLEkO" style="">
+    <figcaption data-page-node-id="igxceFVS8JPBBOs3UNOJyK"><b data-page-node-id="s3ACucyqCi8HokBO26VKK5">①</b> 最上一整条是顶栏　<b data-page-node-id="Zi02FaaDE2ie4WLN6fYQ0V">②</b> 左边竖排是工具条　<b data-page-node-id="4Q3iRTWzhe8vND3ToyLjlR">③</b> 中间大片是画布<br data-page-node-id="M8ZzH2mq1c34RBUOpagoeg">
+      <b data-page-node-id="1hVkquEMPa1U6XYdDqsPdH">④</b> 右边整块是面板　<b data-page-node-id="nhOnFfevBgrvuKOfLPcuEP">⑤</b> 最下两条是键位提示和状态栏</figcaption>
+  </figure>
+
+  <table data-page-node-id="DGRLucsFtz9aaXgUrQuFHq">
+    <tbody data-page-node-id="wQdP5YwbCQFZE1LFoSoCwU"><tr data-page-node-id="7UBTcVBtcX4AMHLdS0EIBX"><th class="c" style="width:44px" data-page-node-id="k2TkhaZYqFCk5h3bJrSP03">#</th><th style="width:150px" data-page-node-id="jqT2c4HDBkPfSJLDFDhUEP">这块地方</th><th data-page-node-id="9Wv6VeYdySBM4NuShKoo8m">干什么</th></tr>
+    <tr data-page-node-id="mGeZbCDZUTUpFaYwYoR7HZ"><td class="c" data-page-node-id="zWkMPg58ny93gHyupnqmEE">1</td><td data-page-node-id="ccgO965Pj9GxDKveDxSlTW"><b data-page-node-id="4oNq0VpZlgRqGwR6wHeDNQ">顶栏</b></td><td data-page-node-id="8qrvAZlSwypkgBF0x4qq0t">文件 / 编辑 / 视图 / 最近四个菜单；右边是撤销重做、文件名（<code data-page-node-id="6n8f4qPPPJEifcolYjzUvD">*</code> 表示没保存）、校验、保存、导出。<b data-page-node-id="VBXBks4MANA0yL5Ew4ks7r">右上角「基础 / 专业」是模式开关</b>（第 8 章）</td></tr>
+    <tr data-page-node-id="1fxDihTsScB5YvucLLOLZL"><td class="c" data-page-node-id="uU5fREnxNwyCwDddDPq3WH">2</td><td data-page-node-id="NVWIsTR3IbvokSXXiEBCnI"><b data-page-node-id="38q2sigykWvNg4g8h6bJNF">左侧工具条</b></td><td data-page-node-id="YM04NVgAg1s6lRXOMthUfS">四个模式：道 / 连 / 车 / 饰，对应键盘 <kbd data-page-node-id="QSpATMpIqpmn0xKmpoZxYF">1</kbd> <kbd data-page-node-id="fntiwiraS8dweZYNOPG22Z">2</kbd> <kbd data-page-node-id="v7yJC3DLCesGwa11sa1aEj">3</kbd> <kbd data-page-node-id="BMG5NuaZlf31WjanycGTxP">4</kbd>。下面是测量 <kbd data-page-node-id="znR9dHqKxtRuZdv8NazaJy">M</kbd> 和格点吸附 <kbd data-page-node-id="SWyMICB7JiCzYq7dbG5yO3">X</kbd>。亮着橙底的就是当前模式</td></tr>
+    <tr data-page-node-id="HVl363E0gECe8ZHEwFh2gu"><td class="c" data-page-node-id="j7dqL889LAtUydDGhfgLNK">3</td><td data-page-node-id="VauWuALUJPUIvxE1yGURk6"><b data-page-node-id="HwTcsPnodyaolI6a4j3cKQ">画布</b></td><td data-page-node-id="UDQvmgcsVAFyhAFC7XjN8X">画路的地方。中键拖动平移、滚轮缩放</td></tr>
+    <tr data-page-node-id="rXhqZl6nBxP3sYrV57Hy9o"><td class="c" data-page-node-id="LwaIYVaQ4RgxIay1LnMBmk">4</td><td data-page-node-id="0U1ab6ljeHCIx7SnoWENcz"><b data-page-node-id="EnJEgUAqGnbqZT5KELluLE">右侧面板</b></td><td data-page-node-id="sFs2JGt6qAgEEm0zqrbfUP"><b data-page-node-id="fKnqAgDAfKlJsh0q8Ifm1u">你选中什么，它就显示什么</b>。这是用得最多的地方，改车道数、改配时、改流量都在这</td></tr>
+    <tr data-page-node-id="tNUcPXw2TRB9bNPOM45NRy"><td class="c" data-page-node-id="RofUC1Bu1IS1dUdmmwD1Kn">5</td><td data-page-node-id="nlhcQXHCG6fvPgXyIbkGkA"><b data-page-node-id="qPdHisBEhS3fWPEaJgjSa6">底部两条</b></td><td data-page-node-id="mgbNAAXaUq8Di1Gg1xXETW">上面一条是当前模式的快捷键提示（会自动换），下面一条是状态栏：现在什么模式、选中了什么、鼠标坐标、缩放、有没有校验过</td></tr>
+  </tbody></table>
+
+  <div class="box ok">
+    <span class="t">记不住键？按 F1 就行</span>
+    <p>软件里<b>随时按 F1</b>，弹出一张完整键位表，顶部还有搜索框——输入「撤销」或「Ctrl」就能筛出对应的键。</p>
+    <p>后面各章会反复出现「按 <kbd>G</kbd>」「按 <kbd>M</kbd>」这种说法，<b>不用背</b>：忘了就按 <kbd>F1</kbd>。</p>
+  </div>
+
+  <div class="box tip" data-page-node-id="KEp7gcIbSdamPUAfoZNQaW">
+    <span class="t" data-page-node-id="m8KvQJ7bJJIH014SZX7dSM">一句话记住右边面板</span>
+    <p data-page-node-id="V6qzpLXH2qDgGG8LEorbNU">不选东西 = 关卡设置；选路 = 路的参数；选路口 = 路口和配时；选车道 = 车流。选错了就在画布空白处点一下。</p>
+  </div>
+</div>
+
+<!-- ══════════ 03 ══════════ -->
+<div class="chap" id="c3" data-page-node-id="u38i5HaIfjCBGuiE7FM8El">
+  <div class="chap-head" data-page-node-id="OWrzEb90jQ8xHAXfLwK0AS"><span class="no" data-page-node-id="78Cs96Oj4B2xzOYjxJsxDQ">03</span>
+    <div data-page-node-id="B11aOuB9riGc8R1Gq56pzZ"><h2 data-page-node-id="QVN6zb1obdpLpq9aJaCL6j">画第一条路</h2>
+    <p class="say" data-page-node-id="CNc1TfFNTOHJFOzefYwF9n">拖一下就成，右边的数字回头都能改。</p></div>
+  </div>
+
+  <ol class="steps" data-page-node-id="YEuGGarfdLCrPPKJI7ZJqb">
+    <li data-page-node-id="BHTkTNaHVABOg6Zn7WX9eW"><b data-page-node-id="DO0ZL7Iudzf8LQ9ILznTBX">按 <kbd data-page-node-id="nyIrFplAMt4a5LJqycaR1P">1</kbd></b> 切到「道路」模式（左侧工具条第一个亮橙底）。</li>
+    <li data-page-node-id="kuw3taGHvEm6kkmmdlTp4A"><b data-page-node-id="LeyFwFlVaRxUAF0l0V6Y8y">在画布上按住左键拖一条线</b>，松开。出现一条路，两端各有一个小把手。</li>
+    <li data-page-node-id="O78EgT4qfXyaRBU7d1guki"><b data-page-node-id="W66RnchPvgniWMQ1pSCbUg">拖端点把手</b>可以改长度和方向；<b data-page-node-id="6AUaWYuSXI3FFEks5wIXp2">拖中间</b>整条平移。</li>
+    <li data-page-node-id="APOTm1uethwrPEf5maZuSN"><b data-page-node-id="x82KBhBdfSpEP8TlCnQojp">在右侧面板改参数</b>：车道数、限速、要不要人行道 / 非机动车道。改完画布立刻变。</li>
+  </ol>
+
+  <figure data-page-node-id="fu9Ih4SpvLZiPIemICNEBo">
+    <img src="img/b2b-选中一条路.png" alt="选中一条路" data-page-node-id="iwlMrOwMNA7aD54MCRPlxH" style="">
+    <figcaption data-page-node-id="mi6mGjP6Btrcs8oTWqLLBq">点一下路就选中了，右侧面板变成这条路自己的参数</figcaption>
+  </figure>
+
+  <h3 data-page-node-id="1ZlRRkcktZBZGDuvYSfoB1">右侧那几个数怎么填</h3>
+  <figure class="dock" data-page-node-id="9AUzMWsYTYDkel29LMeSPx">
+    <img src="img/b2-横断面.png" alt="道路横断面面板" data-page-node-id="QSL4thvF2ZZMfPpk7rkff5" style="">
+    <figcaption data-page-node-id="GOQhjYmmDpxyCXJ77tW279">选中一条路时的全部参数</figcaption>
+  </figure>
+
+  <table data-page-node-id="MVKg331WoFNPBX3gwCDxfw">
+    <tbody data-page-node-id="pw5jTYXsnKBzY8q4wnlNYj"><tr data-page-node-id="cpsvjEP6NwyThdhLVOMSzS"><th style="width:140px" data-page-node-id="3UhazY9FhmQAuBjM7jskeg">参数</th><th data-page-node-id="XIbLJbgAIKcH82CCilb8Lr">怎么用</th></tr>
+    <tr data-page-node-id="feO0xCeb0LfjrKGuYd6tbF"><td data-page-node-id="RxGA6EYilmPSdzrZqHTYHN"><b data-page-node-id="IO0AKh9ZWgYCZXaGwXewaI">模板</b></td><td data-page-node-id="eeJoB7CD6z5b8jLbw1Ntc4">五个现成的横断面，点一下就套上：双向 2 车道 / 双向 4 车道 / 2 车道+非机动车+人行道 / 单行道 / 4 车道+左转专用道。<b data-page-node-id="KtbrLbSaesYlBObETwVQGL">新手先用模板</b></td></tr>
+    <tr data-page-node-id="RhpUE1SSGFKCj85sR0fVok"><td data-page-node-id="0qEHSRAtziuIVXvdAW0AmM"><b data-page-node-id="10JvfZCUEgq42KnpHbyeR3">正向 / 反向车道数</b></td><td data-page-node-id="u6DCBeEX0SH5MSEabqUdfd">模板套完还想微调就改这里。1 条 = 单车道</td></tr>
+    <tr data-page-node-id="arSzy5Hw7AT7DekI4beQ7x"><td data-page-node-id="Fs7jclvliLNE7y29IdgK0H"><b data-page-node-id="HO1CXhKh14Eibqs4OgBFmJ">单向</b></td><td data-page-node-id="yztleiIKufrbjng3FyE9K4">勾上就只保留正向（a→b）那一半</td></tr>
+    <tr data-page-node-id="CIhDNHIRDLww2ZoiIe7Bq3"><td data-page-node-id="sa1RnKDHAjrEy6HwxoGSb0"><b data-page-node-id="soR0CaYsezwYSfmSMVff3a">限速</b></td><td data-page-node-id="Kzy7BhbO8bfS4BW5YkEXSW">单位 <b data-page-node-id="UbsNa0i76iITjP07qfj99n">m/s</b>。城市道路一般 14（≈50 km/h）</td></tr>
+    <tr data-page-node-id="pK3kIzQOkOclMuWVjR8JB1"><td data-page-node-id="068AGbnm8rD0nTbXiHkPTJ"><b data-page-node-id="0za4J9GR9Uh3PEkBGgD4iD">人行道 / 独立非机动车道</b></td><td data-page-node-id="IzHB0j9fFf83ci1fFF9UBI">勾上就多出这类车道。行人过街要用到人行道</td></tr>
+    <tr data-page-node-id="cza6PJaatYng4zexDjMnfb"><td data-page-node-id="tGxRaHrL1K9mJPl05oDvJl"><b data-page-node-id="UnlHEqWyB3BLxGQrBaWHXr">公交专用道 / 左转道 a→b / b→a</b></td><td data-page-node-id="1EujqCxYkxUm3GAqsEeElX" style="">少见的特殊车道，新手暂时先不用管​</td></tr>
+    <tr data-page-node-id="dWDVvXoGUA3y4sBIRUuJTe"><td data-page-node-id="OE0zcHBnMhZ5GtCQsp201h"><b data-page-node-id="G5pIZhaKUyFTUSXokjzSQn">进口拓宽</b></td><td data-page-node-id="8wr6Z9RPckfFA7FpT6gr3A">路口前多一条车道。填拓宽长度（比如 60 m），点「拓宽 a 端」或「b 端」</td></tr>
+  </tbody></table>
+
+  <div class="box tip" data-page-node-id="tqROk9DAHiEiPVOMJIoDFl">
+    <span class="t" data-page-node-id="LFaGenvIzmoLtFoew0t7ge">弯的路 / 十字路口怎么画</span>
+    <p data-page-node-id="pe2pziZX0mhKTDTlRmHc91" style="">路口：两条或两条以上的道路的同一端点重合，即可形成路口，双击路口即可生成连接线。<br data-page-node-id="HTBqelFOkENjlh3bGGrE7r">弯路：选中路，按住路中心的实心橙色球，拖动即可变弯。</p>
+  </div>
+</div>
+
+<!-- ══════════ 04 ══════════ -->
+<div class="chap" id="c4" data-page-node-id="k75yijZlpchNtz0bDMMXXn">
+  <div class="chap-head" data-page-node-id="HOr8hGlXWEkVTA9X2XHIP8"><span class="no" data-page-node-id="nHBt4Bz9UC2B5ZDqVIdgFx">04</span>
+    <div data-page-node-id="RMbtlACzEI5fiTrRn4PA5X"><h2 data-page-node-id="ZkDwVzNYEPudj9NXjAmTIN">做路口、生成连接</h2>
+    <p class="say" data-page-node-id="k9BBpIkfKT7eZ0ZkK6O0Ra" style="">道路模式下双击路口。或者选中路口按 G，自动生成连接线。​​​</p></div>
+  </div>
+
+  <ol class="steps" data-page-node-id="PX0VdEH4DgFltd9GhjTczG">
+    <li data-page-node-id="2zYvIWf0WGpcQMgIjyvsmk"><b data-page-node-id="KF7Mv4LZrMA5f8qjH6FwVK">按 <kbd data-page-node-id="cKxaESetmVCLp4BGdItmoB">2</kbd></b> 切到「连接」模式。</li>
+    <li data-page-node-id="J0Ik8R1cBWbmV6NYcYPEJv" style=""><b data-page-node-id="UfqmIIi2nvM7VyTYFP8UAW">点一下路口</b>。道路上会画出彩色曲线：橙色是进口，蓝色是出口​。</li>
+    <li data-page-node-id="xPaZKeiFx6YqApwnxLkQlj" style=""><b data-page-node-id="NpDMtAitVlXiMPHPhYiTqG">按 <kbd data-page-node-id="Gv9ZQuWBEMSoTShxesmc8a">G</kbd></b> 自动生成全部转向。中间的彩色曲线就是一个个转向。</li>
+    <li data-page-node-id="WtcfhpuWFrKZnCh5i05K1V"><b data-page-node-id="fDRRIRYUGl21pfWLPpHZqS" style="">想让某个路口是红绿灯​</b>：选中它，面板顶部「节点类型」改成「信号路口」。</li>
+  </ol>
+
+  <figure data-page-node-id="20xgOaOuhXGrGPUJS4bqwz">
+    <img src="img/b3-连接模式.png" alt="连接模式选中路口" data-page-node-id="VYG7FwokG8QAjNarS1KS1z" style="">
+    <figcaption data-page-node-id="RWWajnIoYBOniFMA3YTiW5">连接模式选中路口：画布上的彩色曲线是转向，右侧是路口参数和配时</figcaption>
+  </figure>
+
+  <h3 data-page-node-id="iq9v2KOalDys5bk43msEKC">节点的四种身份</h3>
+  <table data-page-node-id="sMFVvCUgkGsFsRLnZ1btsU">
+    <tbody data-page-node-id="G6HGTgdfLhDFMMcz0hqHqS"><tr data-page-node-id="v07ZLhkejP2eXeSDjYuRXs"><th style="width:130px" data-page-node-id="Wy7iPzglpVtxMJ15vBUMDo">类型</th><th data-page-node-id="mJcXBnmHIIiQwmyBgRQp92">什么时候用</th></tr>
+    <tr data-page-node-id="spx81fQsbryjIXb2wBgekU"><td data-page-node-id="ISG40CW6qGKMEcn1pEsZnf"><b data-page-node-id="096YW4ExHMEhVMnAQPLisW">普通路口</b></td><td data-page-node-id="H1DnpqNb6ilYAGlKHWsbv3">默认。没有信号灯，车自己看情况过</td></tr>
+    <tr data-page-node-id="7H4XsJ9LO1Uk5jPVCD8pnZ"><td data-page-node-id="I3d3ylqfLmvB1hPJO5IZRI"><b data-page-node-id="3qHqtg8oCisnhl5zu7qNJ6">信号路口</b></td><td data-page-node-id="LRhU9pxC7MkngoSbZ8GXIp">有红绿灯。改成它以后才能配相位（第 5 章）</td></tr>
+    <tr data-page-node-id="ZpUE8fZvF1EHmqL11wJ9os"><td data-page-node-id="EawLQDiBWnN0uS9BAKW34z"><b data-page-node-id="Q4iGfoQNqIM7zJpDwimiTK">起点 / 终点</b></td><td data-page-node-id="LAw1yzQjSgIY0hvHVr8DRM">只在路的两头「自由端」自动出现，表示车从这进来、从那出去。<b data-page-node-id="a8FfsRLB45lDzVStHPiJJG">别手动改</b></td></tr>
+  </tbody></table>
+
+  <div class="box warn" data-page-node-id="Vna7hUAf15VCF11t8t3kz9">
+    <span class="t" data-page-node-id="SnECCSWPiXJiVdZSAivJVA">改了车道数，连接会消失</span>
+    <p data-page-node-id="YFXqYzgwD8xepS6jUS1qHn">这是正常的：车道重新生成后，旧转向对不上了，所以被清掉。回连接模式再按一次 <kbd data-page-node-id="uwdz0OzmUmN9CeziGj4xkn">G</kbd> 就回来。</p>
+  </div>
+
+  <div class="box note" style="border-color:var(--line); background:var(--cream)" data-page-node-id="D2KHqwfopsHATIbSyterOw">
+    <span class="t" data-page-node-id="5GXMj3Za9DmHNGsGDpzcC6">只想要部分转向？</span>
+    <p data-page-node-id="C9hMiXYlY52PGqtg9zgyDu">自动生成以后，点某条曲线可以删掉它；也可以完全手工画：<b data-page-node-id="SaiNNjG1uroejSjFhwcW5H">先点进口车道、再点出口车道</b>，就连出一条。</p>
+  </div>
+</div>
+
+<!-- ══════════ 05 ══════════ -->
+<div class="chap" id="c5" data-page-node-id="KQoW8JXRMlYBWjudvG2SXS">
+  <div class="chap-head" data-page-node-id="ORRSY6DHXj20TMDwECQqHr"><span class="no" data-page-node-id="ravQ5vMdeQIkurWoIaCnPR">05</span>
+    <div data-page-node-id="RYZ9WCgbEu1Wd7THy6lVlD"><h2 data-page-node-id="KuLGIKws3Ydp9j9uV5UHBQ">配信号</h2>
+    <p class="say" data-page-node-id="nxbfI9sCflC6xksfqsvSDE" style="">只需要想清楚三件事：几个阶段、每阶段放谁、每个阶段多久。​</p></div>
+  </div>
+
+  <p class="lead" data-page-node-id="SaHpm9WQT0VoPiT7DlJqNb" style="">选中<b data-page-node-id="IxGV4tSHlJwdv9ecJ54qby">信号路口</b>后，右侧面板下半部分就是配时区，强烈建议使用专业模式的信号配时，尽管会复杂一些，但是相比简化版更加直观，简化版更多是自动一次后就不动了。</p>
+
+  <figure class="dock" data-page-node-id="9Xh5DrZFTI6km0Tx6jXIKb">
+    <img src="img/b4-配时面板.png" alt="信号配时面板" data-page-node-id="9APXwc2mHl1vU5LvVXjrKA" style="">
+    <figcaption data-page-node-id="IoAg2bp1eNJTjjQ0zkquS9">配时区：阶段数、每个阶段放行哪些转向、时长</figcaption>
+  </figure>
+
+  <ol class="steps" data-page-node-id="FuM9HjnAoELp6tqi7fr8mH">
+    <li data-page-node-id="GCcfXlFPm1WS8Zy5WIyekJ"><b data-page-node-id="RPjCecYHjaDLrPccStls6K">选阶段数</b>。十字路口最常用「2 阶段」：先东西直行，再南北直行。默认就是它。</li>
+    <li data-page-node-id="bcyRX8KJz289nabAKTabwR"><b data-page-node-id="EAshqOYUkbkFo7AA24rOsa">看每个阶段里的「保护 / 让行」两行</b>。绿色勾着的是这个阶段放行的转向。</li>
+    <li data-page-node-id="xuxHHmWBkjAWy1Fg5CRqra"><b data-page-node-id="2pAkoeGqVube1uIvLl36P8">改时长</b>。每个阶段卡片左边那个秒数就是绿灯时长。两个阶段加起来就是一个周期（默认 30+30=60 秒）。</li>
+    <li data-page-node-id="Md7Ch7XSSM2hYag4v2F7J2"><b data-page-node-id="M1O7nbIpA0rfKJDsg7VnQN">看相位条</b>（一条橙色横条）：它就是整个周期的样子，比例一目了然。</li>
+  </ol>
+
+  <h3 data-page-node-id="DcaIuc0VHHsxMuLlA1egGQ">面板上的红字要不要管？</h3>
+  <div class="box warn" data-page-node-id="2HAOvlEXUsspXFE1oG59bJ">
+    <span class="t" data-page-node-id="zNW0YCngIsnzmOrH34R34l">红字是提示，不拦你导出</span>
+    <p data-page-node-id="Au60bG0B6rRglcjaEXHA4G">写着「保护冲突（同一阶段两股车流会撞）」的意思是这个阶段放行的两股车<b data-page-node-id="boAxBWsNGzMQb0fChMAE3G">几何上会撞</b>。
+    简单路口经常出现（尤其左转和对面直行同时放）。<b data-page-node-id="QiSUxcv7pi7FDlts8HmaT3">能导出、能跑</b>，但游戏里会撞车、SUMO 里也算冲突。</p>
+    <p data-page-node-id="PxS5QXcPvewzUiuJvno9lW">要消掉：把其中一个转向挪到另一个阶段，或者把它的灯改成「让行」。</p>
+  </div>
+
+  <h3 data-page-node-id="YE3ll0LtOoTwQkf5MI7c6D">其他几个开关</h3>
+  <table data-page-node-id="nv3xegI41HPYXHLVA6EJgx">
+    <tbody data-page-node-id="ooQx8Ikw8efhAHdMBysDUY"><tr data-page-node-id="AE36YZFAF0yEkHh3gPOmE0"><td style="width:150px" data-page-node-id="hqHPoBsGDgADs4yMxUIBOy"><b data-page-node-id="KMBVAPVRvW3vlKAfQtSLAs">相位差 offset</b></td><td data-page-node-id="3zaBCX6M48RbibldeXjnY1">这条路比隔壁路口晚几秒开始。做绿波用，单个路口填 0</td></tr>
+    <tr data-page-node-id="AJwDUcHXAK8lCz1Y7oTumv"><td data-page-node-id="Yzo6KnEW2ps2WQBFLxGcan"><b data-page-node-id="CucbGpZ93lU8rozLEqyGDd">时变配时 / 添加方案</b></td><td data-page-node-id="EUNpUcLNuX8MggtuCiprsE">一天里不同时段用不同配时（早高峰 / 平峰）。简单关卡不用</td></tr>
+    <tr data-page-node-id="i2Vj5LrXifdBjn7M4STY1n"><td data-page-node-id="5KvUWiGHIMqRc9klGlaDWF"><b data-page-node-id="TcfdBeigvRxb9fJ9frti3l">批量建曲线</b></td><td data-page-node-id="urV0no09dFaT5NaAKbxsne">「机动车流 → 全部进口」一键给所有进口建需求（第 6 章要用）</td></tr>
+  </tbody></table>
+</div>
+
+<!-- ══════════ 06 ══════════ -->
+<div class="chap" id="c6" data-page-node-id="k4Zt2z1FpwJZnnOIUHKrPF">
+  <div class="chap-head" data-page-node-id="Ydh7GFhzT9o6Jtwywkoa11"><span class="no" data-page-node-id="DedjIbnCb2TsIZ8X1nfE47">06</span>
+    <div data-page-node-id="vchNLRraUcqy36GTrLvv0E"><h2 data-page-node-id="pvJD3MYjyAAqaV9pSbjWZP">配车流</h2>
+    <p class="say" data-page-node-id="zlxfgkveHys2SccVFQgnVE">车从哪来、来多少 —— 挂在「进口车道」上。</p></div>
+  </div>
+
+  <ol class="steps" data-page-node-id="Oshf7G3mQH0dBzdLXbUTpR">
+    <li data-page-node-id="KSgCpCXpLZFRODI3nTVhrS"><b data-page-node-id="so67mkV8uHz3cDnU93fuV7">按 <kbd data-page-node-id="DIlP0ErrgoC5jeqnYO2gQM">3</kbd></b> 切到「车辆」模式。</li>
+    <li data-page-node-id="NLOI7EXPANCzCbXwvzIlw5"><b data-page-node-id="g3JKFJtlgrc6uLR45i2m4z">点一条进口车道</b>（箭头指向路口的那一侧）。别点出口车道 —— 出口不放车。</li>
+    <li data-page-node-id="1jPkytmn1ECWBsnARpBOyC"><b data-page-node-id="9KhgrEowmZvhW5KmzYXdCK">在「需求曲线」里填时段和流量</b>：时段 1 是「从第几秒到第几秒」，流量是「每秒几辆」。</li>
+    <li data-page-node-id="E9zdQ6QFuZzWI3kkE9BGVy"><b data-page-node-id="ParequTGGDbdDGhnaueDyD">懒人办法</b>：回到连接模式选中路口，点「机动车流 → 全部进口」，所有进口一次配好。</li>
+  </ol>
+
+  <figure class="dock" data-page-node-id="AF9SvyDgn6PjLnjQmQZ1gZ">
+    <img src="img/b5-需求曲线.png" alt="需求曲线面板" data-page-node-id="cGlDhA5CjeZPqxCCTzNrDg" style="">
+    <figcaption data-page-node-id="ONShaQs2ef3LcEoTMElAX1">一条进口车道的流量设置：两个时段，折线图是它的形状</figcaption>
+  </figure>
+
+  <table data-page-node-id="dBXMAVqZKaVD4disifc68S">
+    <tbody data-page-node-id="Fs4HOo5kdAPbxDakMmHfVB"><tr data-page-node-id="nLipX59Qax7pa80GHhDF0j"><th style="width:150px" data-page-node-id="EHoMAmfP5Ik1ySODlliRFQ">字段</th><th data-page-node-id="L8d0qXYXdZq8e7OefSlssj">怎么理解</th></tr>
+    <tr data-page-node-id="TvoSaomYj3UJXKBcgpCBiZ"><td data-page-node-id="RLCy329LRbJfvIrS3qeUUs"><b data-page-node-id="do7g9RWFpCDLnEWKuDtc6w">时段</b></td><td data-page-node-id="w4lKoqfZj0MYxrrvFmE40d">单位秒。0 → 600 表示「前 10 分钟」</td></tr>
+    <tr data-page-node-id="cDfAGV6ZjjGaOY7uZShtgo"><td data-page-node-id="KyyOIEFgHf6PwIGb31R3AI"><b data-page-node-id="tV4f8SfqKlB4TIqKBw6Xkm">流量</b></td><td data-page-node-id="0ThSa1KMesGBPpHYgIWRdy">单位 <b data-page-node-id="lOs08bf9eaAPEBO5zhZAxL">辆/秒</b>。0.1 就是每秒 0.1 辆（≈ 每分钟 6 辆）</td></tr>
+    <tr data-page-node-id="SmSbC384NRfrvis1iIZdJQ"><td data-page-node-id="leBlWL2Jg2wRTM1ykFqaYx"><b data-page-node-id="xc5W7vzAnoUfqSHUYoCu5r">曲线</b></td><td data-page-node-id="TRTnPRd5i4opU060uoxQ5Q">上面那张折线图只是把数字画出来给你看，不能直接拖</td></tr>
+    <tr data-page-node-id="wnQrebeF5dzYOGO5uhMvgE"><td data-page-node-id="gEQy2fIIToLIv5zNxLHWPk"><b data-page-node-id="AiHJ3ykIePAEo2HogCF9pq">套用到本路同类 / 本路口进口</b></td><td data-page-node-id="BFAkgbcEaPUI5eNNonHNaB">把当前这条的曲线复制给其它车道，省得一条条填</td></tr>
+    <tr data-page-node-id="0nHwQeeZ6g85OPz9C5msNK"><td data-page-node-id="g6fpcj6t3HyDlxrd7OAM9D"><b data-page-node-id="4Cyc73lTDM3LKvMWbvcLzC">非机动车流 / 行人</b></td><td data-page-node-id="SKOCCeO1Ake78pNheJhD86">同理，在这个区域下面另有一组</td></tr>
+  </tbody></table>
+
+  <div class="box tip" data-page-node-id="jfICaHVbWLBOka7GzB4MQp">
+    <span class="t" data-page-node-id="41D6pYdSsQD48LGV3YonyQ">数量级参考</span>
+    <p data-page-node-id="ONHW8Po4BkOYmfy7dPDPlg">一条普通车道：<b data-page-node-id="oeEytnHZyEt90VQipgNsG8">0.1 ~ 0.2 辆/秒</b>看着比较自然（360~720 辆/小时）。填 1.0 会堵成一条龙。</p>
+  </div>
+</div>
+
+<!-- ══════════ 07 ══════════ -->
+<div class="chap" id="c7" data-page-node-id="jJjMqi8YnnZjwuhX39TZvU">
+  <div class="chap-head" data-page-node-id="R3Gdn9fGwGQ5TlOvQ3Goyk"><span class="no" data-page-node-id="EDp5QjOjoOpxjdXwc3Epyv">07</span>
+    <div data-page-node-id="Q0s9pATsZkruPsGls31Cxn"><h2 data-page-node-id="N3oGRIrFEWKUVmAS9p4uEU">保存、校验、导出</h2>
+    <p class="say" data-page-node-id="9vWlSHL1gGRBCPj38df6tm">保存是存自己的；导出才是给别人（游戏 / SUMO）的。</p></div>
+  </div>
+
+  <table data-page-node-id="uJn46Duvksk7fWuZXRThn1">
+    <tbody data-page-node-id="q149iFQ7RcPWH4rOh0ByIn"><tr data-page-node-id="9ze8yrG3oLmexRITQXgWWD"><th style="width:110px" data-page-node-id="rm7W7qhS9AjpaJCEm4ZVfz">动作</th><th style="width:120px" data-page-node-id="EkbhifUe79GlQpLUtqO6Q3">快捷键</th><th data-page-node-id="zUfK7Fc9XvPA2PurVCsqxN">说明</th></tr>
+    <tr data-page-node-id="ADLXrZ37CBag9VU8ES8WW8"><td data-page-node-id="2c70ObPBtcgnnwM0EUaUyC"><b data-page-node-id="Li8fA4PX45oHFsKwpEALHV">保存</b></td><td data-page-node-id="Job1ccMAKVz8BJTiPPBnjp"><kbd data-page-node-id="T1cAXmA5lxmSUmvCIs5kBT">Ctrl</kbd>+<kbd data-page-node-id="CyCFErJTB2oKKwc3DGBai5">S</kbd></td><td data-page-node-id="ROhPixRBFi0r6p2gQfHUs2">存成 <code data-page-node-id="wcNbwQXEVIcQgdnqBVG4jJ">.spmap</code>，这是编辑器的工程文件。文件名带 <code data-page-node-id="idxy51Tk1u3PJHzPohWkmu">*</code> 就是没存</td></tr>
+    <tr data-page-node-id="e7DcNQ2N79wNP9DihnCmIC"><td data-page-node-id="WgSljx8CyW40uL9La80gzg"><b data-page-node-id="SzQGL0DSkphyBtHB4cTWbP">自动保存</b></td><td data-page-node-id="j3iG58TWUbAcNE7UF3W5LC">—</td><td data-page-node-id="RwNs8wCJb4503CZHvHabVE">每 5 分钟往临时区存一份影子文件，<b data-page-node-id="Bke8Vff4F2fJL3zwo5xuUD">不动你的正式文件</b>。崩溃后重开会问你要不要恢复</td></tr>
+    <tr data-page-node-id="LLcP4EBF40FmNDzfXEX4yT"><td data-page-node-id="fZ9tu2vFZ8L7eChpIbCk9l"><b data-page-node-id="t5ERFG7sncq6bLw1txQnWW">校验</b></td><td data-page-node-id="vG6RLXepoNJ0MAzYlCK2FL">保存/导出时自动跑</td><td data-page-node-id="c1JfIB4nXnHre00JZV3Fku">顶栏显示「校验通过」或「N 处错误」。点它看清单</td></tr>
+    <tr data-page-node-id="Okd1fYRbj3yjv3oSDT1QHe"><td data-page-node-id="xmghYdx28mzPXG63OmJ2Wc"><b data-page-node-id="ArMH4xddBVoPE0WD5AkBSh">导出</b></td><td data-page-node-id="e2fy4G5J4feSLGsKLiabLp"><kbd data-page-node-id="UCN20L2KsCKJyiBRra0PP5">Ctrl</kbd>+<kbd data-page-node-id="bh5Lq5GJvvuDuobcADGY3c">E</kbd></td><td data-page-node-id="ZdA19vQB3VqZ3l0G2aieoC">转成游戏 / SUMO 要的格式</td></tr>
+  </tbody></table>
+
+  <h3 data-page-node-id="5Dl6YYtlqTZx9ijkWPH7RR">导出的三步</h3>
+  <figure class="dlg" data-page-node-id="clx0NXEHpSuUvA4RE1b2Os">
+    <img src="img/b6-导出对话框.png" alt="导出对话框" data-page-node-id="lxnDRX8OcBdmDvln1mphak" style="">
+    <figcaption data-page-node-id="myJj21Kzf9mBXZP649nBXB">导出窗口：选目录、勾格式、填坐标</figcaption>
+  </figure>
+
+  <ol class="steps" data-page-node-id="CuYMHj1E0MW0KDy1KBb0zk">
+    <li data-page-node-id="2H9G6473gVK1uzzDGwdBej"><b data-page-node-id="114khmgZto0u9Oa5kBc9wA">选输出目录和文件名</b>（右上「浏览…」）。</li>
+    <li data-page-node-id="DqUrYbWhDkKAf0EmE6gIqL" style=""><b data-page-node-id="pvan8c9KYC91Fn9JNLCK80">勾要哪些格式</b>。给游戏用就勾「原生 .spmap」；要 SHP 就勾 Shapefile（还得填经纬度）；要 SUMO 就勾剩下那几个。</li>
+    <li data-page-node-id="K66VpvSboqWLut7BeTgCnt"><b data-page-node-id="fL2uhGYVFWaVJlZp65qiGC">点「导出」</b>。成功会逐条列出生成的文件。</li>
+  </ol>
+
+  <figure class="dlg" data-page-node-id="BrBwwpS2o6AxbSPvXwABpH">
+    <img src="img/b7-导出结果.png" alt="导出结果" data-page-node-id="0tohGW0sDFdUaueI44mtt8" style="">
+    <figcaption data-page-node-id="sGbTJeXjQm9MsleGVjzQF1">导出成功后，每条产物一行，有警告也会写在这里</figcaption>
+  </figure>
+
+  <div class="box warn" data-page-node-id="yAonF0OVOBEHQrmhoiAf1g">
+    <span class="t" data-page-node-id="HwGEAP27nRBd35qUsCeLE8">有错误就一个文件都不写</span>
+    <p data-page-node-id="20dBrcFGNBlV2WsAzDoIeE">这是故意的：宁可存不下来，也不给你一个坏文件。错误会逐条列在窗口里，也会进「校验问题」清单。</p>
+    <p data-page-node-id="BdLVn3YW09Xu1qXxGfd87G"><b data-page-node-id="9HnQo56QCngRPuxCsk72Eg">只是「提示」（Warning）不拦导出</b>，但最好看一眼。</p>
+  </div>
+
+  <h3 data-page-node-id="cjm5PWFPkTcEZABe9FzRIb">校验清单怎么看</h3>
+  <figure class="dlg" data-page-node-id="0vUkgXJsz9R3ZPoCVjzmUo">
+    <img src="img/b9-校验清单.png" alt="校验问题清单" data-page-node-id="xcolGbr0D8S3oVCuFIrE4U" style="">
+    <figcaption data-page-node-id="R9Q4cGeSL8vTzv3iSns9CM">点顶栏的「校验通过 / N 处错误」打开；<b data-page-node-id="AP32iOfCNm7UrZzYSy1yOY">点其中一条会直接跳到画布上那个对象</b></figcaption>
+  </figure>
+  <p class="muted" data-page-node-id="DVavsfa0gA6QQ9I9sC09Za">上图那条提示是示例：给「普通路口」也配了红绿灯配时，软件提醒你这套配时不会生效。</p>
+</div>
+
+<!-- ══════════ 专业版 ══════════ -->
+<div class="part" data-page-node-id="iH3Di8AwRdwKTn8AHCwF2E">
+  <span class="kicker" data-page-node-id="TSLwpGfGYPFPQYRA2LBS2W">P R O &nbsp; M O D E</span>
+  <h1 data-page-node-id="mSratLKEhvBbIPLijj858F">专业版</h1>
+  <p data-page-node-id="ZKcAg1bLa6HzqinWJwHq5G">只想导出给游戏跑 → 到第 7 章就够了，这里不用看。<br data-page-node-id="PFqsjtuwAkq9ZEMWF4CByY">
+     想让路网在 SUMO 里跑起来、看真实延误 → 从第 8 章开始。</p>
+</div>
+
+<!-- ══════════ 08 ══════════ -->
+<div class="chap" id="c8" data-page-node-id="xctVcWBMAhnBvBZpsQOc9T">
+  <div class="chap-head" data-page-node-id="Gkfl0R5wq3kImPiNuDqbwD"><span class="no" data-page-node-id="spIMbmKQOpj3UShBmnHVw3">08</span>
+    <div data-page-node-id="F46orfMAPwKlfTowaidEIN"><h2 data-page-node-id="4QfGFrEo9p8sWUA5PEsxnK">切到专业模式</h2>
+    <p class="say" data-page-node-id="OAiuFdjan56NYG6bI9yCld">右上角那个「基础 / 专业」开关，或 <kbd data-page-node-id="wbBvDHKq4HO1oH5fz2CXJM">Ctrl</kbd>+<kbd data-page-node-id="lPqMpB6ipx90RdOogJcLsu">Shift</kbd>+<kbd data-page-node-id="iNAz92hvJDDVKkB2HUG8si">E</kbd>。</p></div>
+  </div>
+
+  <p class="lead" data-page-node-id="PXuyf4Z0DM73sbErUEGwv3">切过去不会改你任何数据，只是<b data-page-node-id="oIWrfgY9BpeIWRbsXQoLKC">面板上多出东西</b>。多出来的分两类：</p>
+
+  <table data-page-node-id="EH1BoDuELx4C3OCnTKgBad">
+    <tbody data-page-node-id="wJTxCdYVpfHyBzewL50bIF"><tr data-page-node-id="plEv9rY2Ye4qQ9V6HkFGwU"><th style="width:130px" data-page-node-id="Dr6hDhH3h5ASE4JuZthtnC">在哪</th><th data-page-node-id="bKuBf3FU93HQ7yEKlYAYzA">多了什么</th></tr>
+    <tr data-page-node-id="ubt5RJuMUPCGONp89v2oxg"><td data-page-node-id="JEWjwukN0GuCHYObZ9MpMI"><b data-page-node-id="kehoxA3o9foV3j6ahg5B0D">关卡面板</b><br data-page-node-id="yht3Se4dNQsH9KejCy2CED"><span class="muted" data-page-node-id="sCrFwo9sy07CJrDyN9FBLs">不选任何东西时</span></td><td data-page-node-id="rUwCLytffPvlPpjk5EWHfg">「SUMO 路网生成」（4 个开关）和「SUMO 运行配置」（5 个数字）</td></tr>
+    <tr data-page-node-id="srOT6eEakQWwQYHFGx9wz7"><td data-page-node-id="0G8HNDoKcHtWk3bvM11inI"><b data-page-node-id="BVDBAbpI2Q2yl0yfHrbLhm">信号路口</b></td><td data-page-node-id="7rKgtLcqMVkGo2iOvaKVPS">逐灯位配时矩阵（第 9 章）</td></tr>
+    <tr data-page-node-id="4zEGSsvCb7DDOVEUagtAI5"><td data-page-node-id="P90ZauDzoXSsM4lNJS1ENx"><b data-page-node-id="JnKZ0gAMFEf4jO3KnLXwwr">进口车道</b></td><td data-page-node-id="hGWgFwe1R7UQAGuhZ6aUii">车型构成、检测设施、交通设施、公交线路、SUMO 车道属性</td></tr>
+    <tr data-page-node-id="iQKyDrXAMUoHNcfNdeVGsm"><td data-page-node-id="nsBBFgiazFwWhxP1BADCwf"><b data-page-node-id="sellyg2mOHJOxCFEke8Gbk">连接</b></td><td data-page-node-id="k9FdXHVwdBHSkUyR8L7l4D">SUMO 连接属性（这条转向允不允许走车）</td></tr>
+  </tbody></table>
+
+  <figure data-page-node-id="h1Qu2NBiTB3LsRtQkReRVE">
+    <img src="img/p1-专业模式关卡.png" alt="专业模式下的关卡面板" data-page-node-id="4TeIeN7L4OmO9l7o1L3Q9I" style="">
+    <figcaption data-page-node-id="O7bPOgV0waVoQMsZ8CwhF9">切到专业后，关卡设置里多了「SUMO 路网生成」和「SUMO 运行配置」两块</figcaption>
+  </figure>
+
+  <div class="box tip" data-page-node-id="b3USPBafx0xwVTmbXH3tl2">
+    <span class="t" data-page-node-id="73zFmx0YjHC5Us6OZ0rjeb">专业模式的数据存在哪</span>
+    <p data-page-node-id="oyKaVYzCnKiNGvCvdzwkD5">存在关卡旁边另一个文件里：<code data-page-node-id="lQ5SpJcy8M6AXGeEcadDWA">你的关卡.sumo.json</code>。<code data-page-node-id="qdsg5neAlYfmQtkiANTzp8">.spmap</code> 完全不动。
+    这两个文件要一起保存、一起拷走；删掉 <code data-page-node-id="9Nd8QWS4HymKMDqAVnoadH">.sumo.json</code> 就等于回到基础模式。</p>
+  </div>
+</div>
+
+<!-- ══════════ 09 ══════════ -->
+<div class="chap" id="c9" data-page-node-id="IoC4pVFrEkvuH5x7NxuxoV">
+  <div class="chap-head" data-page-node-id="vTAcpGftZaw6LukkvNErpa"><span class="no" data-page-node-id="oBIIETNGnoidZ6IZl2lCgi">09</span>
+    <div data-page-node-id="sqU95DcTRDwVBfyG5js3Vb"><h2 data-page-node-id="D3zylgm39ugmGAXR5cP3o1">逐灯位配时 / 车型 / 设施</h2>
+    <p class="say" data-page-node-id="PpBAoyvTwYjIplCjQE48ZX">专业模式的三块主力，都还是「选中什么编什么」。</p></div>
+  </div>
+
+  <h3 data-page-node-id="mwUm4RfRUj5DCZH6tNADaZ">9.1 逐灯位配时：精确到「哪条转向亮什么灯」</h3>
+  <p data-page-node-id="Hr8ZOAoG1tDqMFeNvDxWAY">选中信号路口 → 面板里滚到「信号灯配时」。这是一张<b data-page-node-id="v1sxBlQGYYWa4w1gOdC6yQ">行 = 转向、列 = 阶段</b>的表格，点格子切换灯态。</p>
+
+  <figure class="dock" data-page-node-id="cmyngB9k86TjgsyfiyoHcw">
+    <img src="img/p2-逐灯位矩阵.png" alt="逐灯位配时矩阵" data-page-node-id="6qpctPTmUKBlMCBIcv4yhF" style="">
+    <figcaption data-page-node-id="jO9YsiTulTqe2KKXbEZzVP" style="">绿色 G/g = 放行/让行放行，红色 r = 禁行。列头是三个阶段的时长（30s / 3s / 27s）​</figcaption>
+  </figure>
+
+  <table data-page-node-id="1hdZZsmgcgen7Ufkya9a9g">
+    <tbody data-page-node-id="3t8eCVdzDfVkRh40aBTnqB"><tr data-page-node-id="2DS0CcvTBkDm9VATqpT71m"><th style="width:110px" data-page-node-id="s9AFZF7nUy0tBLcSA5t5Bx">操作</th><th data-page-node-id="2Ue2ChSuB6hqbgKbR8rcKs">结果</th></tr>
+    <tr data-page-node-id="EC4Aqo4LdCua7PSAn4mYCA"><td data-page-node-id="BnfV0u9R2liUw29KAtqwCv"><b data-page-node-id="yksxmj0ZkRfbInlAuNlP3T">点格子</b></td><td data-page-node-id="9gFDBt0cBs3mHyXawf2qkK" style="">循环切换：绿 <code data-page-node-id="9ROV2bQgubTEmdo9Lclx7A">G</code> → 绿 <code>g</code> → 黄 <code data-page-node-id="HOl7EFGaNNAHC89bSnRP0a">y</code> → 红 <code data-page-node-id="VbQtJW43b0H3w4PQVU0rWg">r</code></td></tr>
+    <tr data-page-node-id="cALxQ58ZqhbK0g1jz6GDxj"><td data-page-node-id="EoVM0r7ENkHi9D2kGcaUed"><b data-page-node-id="NplLYOEq1SmlQUnB1yf19v">点列头上的数字</b></td><td data-page-node-id="iy9C7wChJoRe0HAGCi5y5n">改这个阶段的时长（秒）</td></tr>
+    <tr data-page-node-id="UGYGDlFlBtReFYAV4J21Dt"><td data-page-node-id="30dVkLmsv8eCkDKzlaLvf3"><b data-page-node-id="VyyM3O1uP8JPxYx2XQBqUv">+ 阶段 / 删除</b></td><td data-page-node-id="xuQ6kRhptHQjPyEBi9Xiio" style="">加一个阶段 / 删掉当前阶段​</td></tr>
+    <tr data-page-node-id="nkurJMP4OVLe3hFJRDmew1"><td data-page-node-id="U8IHaSnxkigf0MODA76iYj"><b data-page-node-id="lEX4LQN7KWb66ZAQakgvRK">方案下拉</b></td><td data-page-node-id="akppE12qWZHxqK7qn5Qft0">一个路口可以有多套方案（比如平峰 / 高峰）</td></tr>
+    <tr data-page-node-id="DiEQUClX2OIKfHKilMxLUG"><td data-page-node-id="eSSJGX0unI1UFW59LKpzaN"><b data-page-node-id="ptswQwEaSVtmPmnHqDZ0LP">从基础方案重新生成</b></td><td data-page-node-id="tFqRck9C8CxN0dRjOO5Pb1" style="">重来一遍​</td></tr>
+  </tbody></table>
+
+  
+
+  <h3 data-page-node-id="orF6ZZk58LiDnNhERkBBPI">9.2 车型与车流：这个进口发什么车</h3>
+  <p data-page-node-id="6fLCIcJrOncAXYnJkfQdVi">选中<b data-page-node-id="jeK51hrh1eai3AoHJ2ADOU">进口车道</b> → 滚到「进口车型构成」。可以放多种车型、各自比例。</p>
+
+  <figure class="dock" data-page-node-id="JzrchH34lJYuYCRMPGOrqc">
+    <img src="img/p3-车型与车流.png" alt="车型构成与检测设施" data-page-node-id="FIUcIwduZI7HR9vGMmvkWU" style="">
+    <figcaption data-page-node-id="xGYoSfFErGDrFE0KIhmM2g">一个进口的车型构成（上）+ 检测设施 / 交通设施 / 公交线路 / 车道属性（下）</figcaption>
+  </figure>
+
+  <table data-page-node-id="u2makGncE4C0UubXXuNn5B">
+    <tbody data-page-node-id="luZ3MYBKczaOJYJlKAbQyR"><tr data-page-node-id="1sGWXzUzynyX6JBf8u6Bwd"><th style="width:150px" data-page-node-id="aNppwoGXlwmcFi9lgM8Tpd">小节</th><th data-page-node-id="vw4BiQHCXaukf8llt4W4eY">干什么</th></tr>
+    <tr data-page-node-id="vFl5qKM9S1raXaxwb8DS2W"><td data-page-node-id="cCnnHGwU810EvA2XJzg4RD"><b data-page-node-id="Eo5YAnEhYzoPzaROplBArt">进口车型构成</b></td><td data-page-node-id="fpZe6UDbzdrDnOYXTazguD">这个进口发哪几种车、各占多少。比例不必凑满 100，导出时会自动归一化</td></tr>
+    <tr data-page-node-id="Mk51480oCGzsMuxZ7482fc"><td data-page-node-id="yHxe8JCNULTXVPX3PE4TFB"><b data-page-node-id="mO8YbdmfPbZG01QJvDdVRa">进口转率</b></td><td data-page-node-id="NTThPZT1dGCk1MGkcEM0jl">进来的车往左 / 直 / 右各分多少</td></tr>
+    <tr data-page-node-id="eKYGTZqaytCUh4h6PDl8iF"><td data-page-node-id="k30pI5CAfulT88NYpKZOSR"><b data-page-node-id="B5xz4kC308eC5rjqDGpzkq">检测设施</b></td><td data-page-node-id="XHus7bWpHu24QZZRnANLP8">在车道上放个「断面流量」或「排队检测」采集点（E1 / E2 检测器）</td></tr>
+    <tr data-page-node-id="MNjj0cclfxY4YbmZ6t22T7"><td data-page-node-id="3WZnnKHczLE7ejGqkKtnSY"><b data-page-node-id="CGPNoZzKr8dsMfc95vsHZE">交通设施</b></td><td data-page-node-id="b6FHkoHRkc6IpbHUUcQaIE">路边放<b data-page-node-id="Ln1D15YeC8FvbYXtT6epGG">公交站</b>或<b data-page-node-id="DD99cEPb7IYusZvRhuOA53">停车场</b></td></tr>
+    <tr data-page-node-id="JDTlJKb9YJBzHdQPR7LMaG"><td data-page-node-id="khLoB2HLfWClbahb4EOUsS"><b data-page-node-id="oMnc8pA7VyotWsAhDFfzNe">公交线路</b></td><td data-page-node-id="HtE34G6DcYn6TlXl3P7MsE">公交从哪个进口出发、几分钟一班、停哪几站</td></tr>
+    <tr data-page-node-id="A1vXkgOsWATp8JHvFa4y03"><td data-page-node-id="xWKJaPB36zVNqek3UcTMmF"><b data-page-node-id="DyxYFYOG5s8pN14NxZNLyB">SUMO 车道属性</b></td><td data-page-node-id="EsiQyuLAeRyQHyB0gYOadQ">这条车道只许公交走（公交专用道）、或者单独改限速 / 宽度</td></tr>
+  </tbody></table>
+
+  <div class="box ok" data-page-node-id="P5OiFNN6lsreQPREEZR8RF">
+    <span class="t" data-page-node-id="uWbay3E7dGlBWqpEnt7UoH">管理车型库</span>
+    <p data-page-node-id="tbCGVtP5LYrGp54TgtwhcE">点「管理车型库…」能改每种车的车长、限速、加减速、涂装风格。<b data-page-node-id="RbvQGTj36Ma9xPupzg3qqq">车型库是全项目共用的</b>，换关卡也不会丢。</p>
+  </div>
+
+  <h3 data-page-node-id="Kibwva20U7KcJX5kc1cTS8">9.3 车流从哪来（重要）</h3>
+  <div class="box warn" data-page-node-id="5VE3VnHoHYgUn5G47pFgbP">
+    <span class="t" data-page-node-id="5mCMpTZHBJmoGAZTNFx0Ej">车型 ≠ 车流</span>
+    <p data-page-node-id="FxSD1K0VvQ5CXKdXWhPYkS">「车型构成」只决定<b data-page-node-id="WZ9b0vB7fVGYvIdMKGcBpC">发什么车</b>；<b data-page-node-id="qVHWjs4se4ZNuDpehvpZQ3">发多少车是需求曲线（第 6 章）说了算</b>。
+    只配了车型、没配需求 → 一辆车都不会出现。反过来配了需求、没配车型 → 用默认小汽车，也能跑。</p>
+  </div>
+</div>
+
+<!-- ══════════ 10 ══════════ -->
+<div class="chap" id="c10" data-page-node-id="WM3vm5GyGogq2DDN08QqgH">
+  <div class="chap-head" data-page-node-id="xTb0UNlHMJUmBGiAO1qCOh"><span class="no" data-page-node-id="kZyvhnDZapEzPfiilCuAJH">10</span>
+    <div data-page-node-id="wmq0u4nbxbFpN2w2hSd0fd"><h2 data-page-node-id="GHsofCHN7yLbHtBPwrkKfb">试跑与体检</h2>
+    <p class="say" data-page-node-id="JOXM8s7sRZdL1neFTAKLMn">跑完直接告诉你堵不堵、等多久。</p></div>
+  </div>
+
+  <h3 data-page-node-id="k4qQkK7lnWDJYvkJ8so7gJ">10.1 先配运行参数</h3>
+  <p data-page-node-id="gcMjlxRQykLAFjCUTOze6d">不选任何东西 → 关卡面板滚到底 →「SUMO 运行配置」。</p>
+
+  <figure class="dock" data-page-node-id="QCXBTBicjBrkofIBgLCE1F">
+    <img src="img/p4-运行配置.png" alt="SUMO 运行配置" data-page-node-id="ZLxISs4Du29onBceXs0kS1" style="">
+    <figcaption data-page-node-id="cB0IcElL5b94R1OD1t2T3P">四个开关决定路网怎么生成；五个数字决定仿真跑多久</figcaption>
+  </figure>
+
+  <table data-page-node-id="l0OxnLWbXrgwyiC3pMa6xM">
+    <tbody data-page-node-id="F2yls8OGeTKUmUeldoTI56"><tr data-page-node-id="TeITQf6J8B1WBdLNbZ44Fd"><th style="width:150px" data-page-node-id="2JnKXYDCV8acpDF1ij07WE">项</th><th data-page-node-id="FYopRD0Wcikq15rCVa7xPw">默认 / 说明</th></tr>
+    <tr data-page-node-id="GMms1fYOgKJSw4X5AGwxNG"><td data-page-node-id="VmT8h0SNoMwt2KkD1Au0V1"><b data-page-node-id="g5deeC7DRrSyBbnq0HxsVz">禁止掉头</b></td><td data-page-node-id="2n78NN7GcJdlNRWzDwM09M">建议开。开了 SUMO 不会在路口给你造掉头车道</td></tr>
+    <tr data-page-node-id="WrTtewIbDErWQLTjogdLfz"><td data-page-node-id="o0CDjuJUdCrWODkVz4H7jS"><b data-page-node-id="gtXSkuAEZ6hr89aJ2HWjPq">不生成内部车道</b></td><td data-page-node-id="oHZ2vz8hvWdGarzpvqJo5i">路口内部不画那条「隐形车道」。灯位编号更稳，建议开</td></tr>
+    <tr data-page-node-id="VDqoEdlAczhKe7DbJsIWUA"><td data-page-node-id="Itwytfc9F1YnxysOnxIWQG"><b data-page-node-id="2TZv4c5G7Okup9FqJRlWMd">左侧通行</b></td><td data-page-node-id="GknJnFIZBbLQUxjEvtPogy" style="">英国等国家是靠左形式的，国内仿真不用开​</td></tr>
+    <tr data-page-node-id="FF6KlWmnwwFimgMIBoQ8Nu"><td data-page-node-id="TaB2MflXRZyIsXFlNrltsM"><b data-page-node-id="0Do42sSdTCaKfW4TuUPRdA">合并相邻路口</b></td><td data-page-node-id="BcKp4Fz0lJFNiIDMFeXKEx" style="">两个挨得很近的路口合成一个。会改变路口编号，<b data-page-node-id="AWrQv5jAJq5aVPmZQk3kP9">已经配好的灯可能对不上</b>，慎用。并且我阈值写的很小，几乎不会没有合并空间。</td></tr>
+    <tr data-page-node-id="TpzDluC5ReczciEGMaGwXc"><td data-page-node-id="Sl78lACeCs8hnFfBIGa3c4"><b data-page-node-id="wh3ZLGvqFicP4r6cvD8vH6">开始 / 结束时刻</b></td><td data-page-node-id="IVoSpkz9P6nEAB12kvHSYF">跑多久（秒）。默认 0 ~ 3600，就是跑一小时</td></tr>
+    <tr data-page-node-id="qd0oClJlp1C4lOPFPGDBlZ"><td data-page-node-id="LwlnfT9yvZwUiOxP0ZkXkQ"><b data-page-node-id="cnxqE4T58rVFkdw1QQUlRF">随机种子</b></td><td data-page-node-id="ssQEH4QIowxm8GtcYjrkmu">同一个种子 = 每次跑出来一样，方便对比。改方案时别动它</td></tr>
+  </tbody></table>
+
+  <div class="box warn" data-page-node-id="byMGgz23NYvl7hji99siAt">
+    <span class="t" data-page-node-id="XUp4dGpTP7kZXTJzoPYClj">改完要重新导出</span>
+    <p data-page-node-id="BP6UyIAhPFD6twNkM0Xnig">这些数字是导出那一刻才写进 <code data-page-node-id="JrUD3kKfTpbbmgbixBDGuT">.sumocfg</code> 的。面板上改完，必须再导出一次才生效。</p>
+  </div>
+
+  <h3 data-page-node-id="nBIo91nCc3CUzQMy5AGxwq">10.2 试跑：点一下看结果</h3>
+  <p data-page-node-id="BnidmXKWHJpAKbNiuM6uDc">导出时勾上「SUMO .sumocfg（一键试跑）」，导出成功后结果区下面会多两个按钮。</p>
+
+  <figure class="dlg" data-page-node-id="K6JWHKj0D1rXgBj0nwaX5L">
+    <img src="img/b8-试跑统计.png" alt="试跑统计" data-page-node-id="khDmTn7g4bY7u890Mfp73I" style="">
+    <figcaption data-page-node-id="8bW7n1Q5xjCB5n1TxPMyt2">点「▶ 试跑」，几十秒后统计直接写在下面</figcaption>
+  </figure>
+
+  <table data-page-node-id="a5XjFRFAWvCubKFHf2zJZ9">
+    <tbody data-page-node-id="T1R0mCd4jnoB70ewZsDfZm"><tr data-page-node-id="dWYZ4vEL9JBaBaypH1v5Xv"><th style="width:150px" data-page-node-id="rZMGia8iVSc3238UmaRBJu">数字</th><th data-page-node-id="fiHjhrODHJ2kLEVl03xRFq">怎么读</th></tr>
+    <tr data-page-node-id="j4BAJ5gNdseNeWZ2eTcMh5"><td data-page-node-id="y2r0ZmqGYQWNUuvkmGk5IN"><b data-page-node-id="0Vp1jaShG7FZ2V0LeCBigt">进车 N 辆</b></td><td data-page-node-id="CCf9sKkbfRPr2S5nvDU5Zi">这段时间一共发出了多少车。<b data-page-node-id="qbg0ACH7VBNusVfsAGiWCR">是 0 就说明需求曲线或车流没配</b></td></tr>
+    <tr data-page-node-id="iZmxd2YKfVNASNu1GtxZLh"><td data-page-node-id="7nDa5aMd4LCRiGTkfaeQyc"><b data-page-node-id="MrADk316B1rjpsxV015nFc">剩 N 辆在路</b></td><td data-page-node-id="oEARxHI7osprCaZAgsYDUu">结束时还没跑完的。特别多 = 路网堵住了</td></tr>
+    <tr data-page-node-id="BCBVa4d0QXUY30aFNV9HJg"><td data-page-node-id="dBjnTN4kxVdKj1MqeCs2ZE"><b data-page-node-id="FNam8OlgIqGkULJCFHZGRn">平均速度</b></td><td data-page-node-id="nCvObcdA5a8JDlCi2WeHAG">m/s。远低于限速就是堵</td></tr>
+    <tr data-page-node-id="9uBrbEWL7XKvzSTAUTsfeP"><td data-page-node-id="HNGbxwaUGwaJDaxpEAhlJY"><b data-page-node-id="wD5ZlNwDl7MttRSwNXcOni">行程 / 等灯 / 时间损失</b></td><td data-page-node-id="YyNvf0sfiQ7q4vZxJo8QUo">一辆车平均花多久、其中等红灯多久。越大配时越差</td></tr>
+    <tr data-page-node-id="AXFZ7BPd9TeWf8wReOEY6x"><td data-page-node-id="gRztRu8QufsvlaJJYmxfHs"><b data-page-node-id="zDPFml1oUgNynnMEtOeg49">传送 N 次</b></td><td data-page-node-id="nQ7gSQ4BGXlugkarDvHC2c">堵太久被 SUMO 移走的车。<b data-page-node-id="EBz0AolE69rJ082OwZtp6T">大于 0 基本就是死锁或路线走不通</b></td></tr>
+  </tbody></table>
+
+  <h3 data-page-node-id="keXqZIAxUTeE0YbGTdovJi">10.3 体检：导出时自动查错</h3>
+  <p data-page-node-id="lli13uRwtarxi4TLi4yn2C">导出时会顺带跑 9 条检查，结果直接进「校验问题」清单（和基础版同一个窗口）。条目都以 <code data-page-node-id="ginDaF1DHAwMGdOaUDXrHi">sumo_</code> 开头。</p>
+
+  <table data-page-node-id="NKiBcRdIi1r0oIyTAKJI1C">
+    <tbody data-page-node-id="lH6Sp4t6wLLTbY91pb779s"><tr data-page-node-id="LuORbkXFlfc4GiNVnEROBz"><th style="width:230px" data-page-node-id="BzBPrWAvxG6BerAUbIKzpC">提示</th><th data-page-node-id="B908h9QbzTyfRHJPbws2YP">怎么修</th></tr>
+    <tr data-page-node-id="aBmQ0XSCyItwqcCH9RAPxZ"><td data-page-node-id="NFJGoBmaRvoGtlX3lxL8MO">某条连接<b data-page-node-id="n8zUplSfRdCbtpfOJU3SHF">从未放行</b></td><td data-page-node-id="dUbCNEBFaWFQ75QQhaVfhg">那个转向在所有阶段里都是红的。去矩阵给它一个绿灯</td></tr>
+    <tr data-page-node-id="h6OgbIfFYItiG3Oep2LPGJ"><td data-page-node-id="FPYAkKHJMZfWnvzXdGS202">两条连接<b data-page-node-id="MNDVlo3gZQpIQB3Fa9ZNfY">同时放行但互相冲突</b></td><td data-page-node-id="SsBSCbOvfHZyTGvEd8Gg3t">拆到不同阶段</td></tr>
+    <tr data-page-node-id="PCef2lTV7Mkm9TKJuDPchy"><td data-page-node-id="eHPkjAFN8UqJlMihNVeVU0">检测器<b data-page-node-id="hMnBhmauDAl87Up0RvFsJj">位置超出车道</b></td><td data-page-node-id="XhC71D2Cfw6UQEWhTimvWE">把「离路口」的数值改小</td></tr>
+    <tr data-page-node-id="ZLRmHlDCcCW6744YwAmksB"><td data-page-node-id="vI6TCgtCuVYo0TzwMhB3gv">需求挂在<b data-page-node-id="atB6ZYhKbYSEACfCoFsvKW">出口车道</b></td><td data-page-node-id="aW2FOfUDwE9R1KFId52Obi">挪到进口车道</td></tr>
+    <tr data-page-node-id="vRODjmacyYlBHemzAdJHFv"><td data-page-node-id="EiGCBR5xlLUOTcXOjhzRKD">引用了<b data-page-node-id="rkwaJ1cDRfoUEcvydakfYk">不存在的车型</b></td><td data-page-node-id="ldyuG24ERgz6WDAuSvHKTl">去车型库补，或改成已有车型</td></tr>
+    <tr data-page-node-id="6GNcJV18z5K61EZHb6BnGZ"><td data-page-node-id="5VbHgh4Nzkd4fN3t7xgXdY">给<b data-page-node-id="X8VCK28IjI3wsHhD44s5X4">非信号路口</b>配了配时</td><td data-page-node-id="UELgB2p9mdnf4Dx1QVN2z1">把节点类型改成信号路口</td></tr>
+  </tbody></table>
+
+  <div class="box warn" data-page-node-id="dmfInx2C6lWgYSGNTZGyLr">
+    <span class="t" data-page-node-id="gP1KEwIkVyea1HzQKFATjU">错误 vs 提示</span>
+    <p data-page-node-id="fYRM8RJK7EteEX3IuLHudC"><b data-page-node-id="z8H68Ivb77PW9Xh7ljBZXB">错误（红）</b>：导出前查出来的会<b data-page-node-id="DscB8WNEl9rh23CFRKrEBA">拦掉全部 SUMO 文件</b>（<code data-page-node-id="3zMqqZla2VHBN7Tg43knFj">.spmap</code> 和 SHP 照常生成）。<br data-page-node-id="UajnGea6Iga0TARMA2wbrZ">
+    <b data-page-node-id="a6WqQU8r2tMKCNNNowBrdq">提示（黄）</b>：文件照样生成，只是提醒你可能不是想要的效果。</p>
+  </div>
+</div>
+
+<!-- ══════════ 附录 A ══════════ -->
+<div class="part" id="appendix-a" data-page-node-id="FPY1e9j5FciumEk6W5lKhh">
+  <span class="kicker" data-page-node-id="0qjC1hiHDC6U9lnVXiReB4">A P P E N D I X &nbsp; A</span>
+  <h1 data-page-node-id="OrIhZOB2hH3HcGBolCm31a">附录 A · 一张关卡该有什么</h1>
+  <p data-page-node-id="5U6QFRIBW9fGe0VD4gnQWG">给设计视角看：不打开软件，也知道一张关卡由哪些东西组成。</p>
+</div>
+
+<div class="chap" data-page-node-id="0EEAQaFFFIxc9EvtERG3E7">
+  <h3 data-page-node-id="uMxylXa1nwAsUCV57PJCG2">关卡的五样东西</h3>
+  <table data-page-node-id="ILC4DtsgCUe26o4NWcDhIf">
+    <tbody data-page-node-id="HBIoyc1pMATdcg5PejuSQv"><tr data-page-node-id="nPeKi55ruNeuF7sXugqCGY"><th style="width:120px" data-page-node-id="mxxmVJ19ZBvVsmVkFjUHBZ">组成</th><th data-page-node-id="lZBJri6VAe1SyLBuVLbuk8">是什么</th><th style="width:150px" data-page-node-id="aCp4VQ4tOyvITyZF9IIjOo">在编辑器哪里配</th></tr>
+    <tr data-page-node-id="pxkjWzQqIxhdGswFAA0yOZ"><td data-page-node-id="UPQwTzflExJnHYbxdv4uQB"><b data-page-node-id="BDNALUH9FlLJrXD0H38V1L">路网</b></td><td data-page-node-id="pfB63u2BwugkGgriStxanS">几条路、每条几车道、限速多少</td><td data-page-node-id="RxryHQXCrbIidhFU3rGA3Y">道路模式</td></tr>
+    <tr data-page-node-id="BlytTnjs9vH96Q4mu63ClD"><td data-page-node-id="SumlE3geapbg9KXCxC3GYT"><b data-page-node-id="3kY5pOoK14BL2H0DYh09ZR">路口</b></td><td data-page-node-id="gIKiOs38vHTjawmLE90arS">哪里是路口、有没有红绿灯</td><td data-page-node-id="uAufzBnWQJMQTXQpt74Fjb">连接模式</td></tr>
+    <tr data-page-node-id="uEp3iPiw5EvkhP0Gf7Xyum"><td data-page-node-id="Ja5Pjg2JDy0F9GoU8ZtQVs"><b data-page-node-id="ZfWd8FYC6iQsBb0G4vJAla">转向</b></td><td data-page-node-id="EuRh7EAzSquqHBReuqbSP8">每个路口允许哪些转向、各占多少比例</td><td data-page-node-id="hQDA6dyFOisGBKW1ujrX7Z">连接模式 <kbd data-page-node-id="ZYEb8VBVNKiswUuqNsOvO4">G</kbd></td></tr>
+    <tr data-page-node-id="BvxZfZ1R4npM3ltZVnCZC6"><td data-page-node-id="La1yWkT3qL7CTDNMlNhzHs"><b data-page-node-id="JFsnMSa4P81kj6JDdlz4D9">需求</b></td><td data-page-node-id="eQf1fnW4gGCOnpePBW7UiU">各个进口每秒来多少车、多少行人</td><td data-page-node-id="vFGcrTYu4VulKMQpRARtvl">车辆模式</td></tr>
+    <tr data-page-node-id="EM6uiQXWYlkPhdhrhKvoMA"><td data-page-node-id="w2AHLCkxyltjQII8Sby37K"><b data-page-node-id="zadUqMVcoH0idylwkGi83q">配时</b></td><td data-page-node-id="HonsuyU6FaUJmqRrdS6YLa">每个信号路口几个阶段、各多久</td><td data-page-node-id="VrpdV5gz45ppVwFUOf1akC">连接模式选中路口</td></tr>
+  </tbody></table>
+
+  <h3 data-page-node-id="2jtSG2Ld96rFCuCUVVx1Sn">评分：四项指标 + 星级</h3>
+  <p data-page-node-id="Sd4ssbkVDH34BEruo0LXer">跑完一局，游戏会算四个数，再换算成分数：</p>
+  <table data-page-node-id="z1MwDU5uPqhiwnFCUg5kj0">
+    <tbody data-page-node-id="7WXn4u4BKSV15hfOkzbbMR"><tr data-page-node-id="Pi6G091yDXfrjvBO7EWfNg"><th style="width:70px" data-page-node-id="lm3WPBKdHr4q6faHYJ1wrn">代号</th><th style="width:130px" data-page-node-id="IABH5g0d3E5IHSgZBQhD0U">指标</th><th data-page-node-id="wnBebBKujTtsAajy9tfTS7">意思</th></tr>
+    <tr data-page-node-id="7VvcVGsy3Ba0CY3HCvuXD7"><td class="c" data-page-node-id="8gUQMzN6ECQuapZIvgsxpD"><b data-page-node-id="EZ6dZz5alqsVH0A7VhP19Q">R</b></td><td data-page-node-id="hRtBlZ5fu6AknPisWLlWvE">平均延误</td><td data-page-node-id="a3JUmYKKgWBbnPDCjxvEJu">每辆车平均多花了多少时间</td></tr>
+    <tr data-page-node-id="2BB7gVdAbptKazmlochmwk"><td class="c" data-page-node-id="tf7ZB8CyQdFvFfBvijDUAp"><b data-page-node-id="2923HzmWyKXBa403SYqb6u">D</b></td><td data-page-node-id="qonXEBo0DNpuUTFksIiHos">最大排队</td><td data-page-node-id="mU7qyN41DzUupDUJe4SYCt">最长的队伍有多少辆</td></tr>
+    <tr data-page-node-id="uorkSShVlrPsVcxlsF7sBI"><td class="c" data-page-node-id="Nq5fFzL0BPyxC3bn2UtLRZ"><b data-page-node-id="xxNop54oyGVM4TTavutmcr">P</b></td><td data-page-node-id="0Yloat8SzgL8yRTzR7naVb">通行量</td><td data-page-node-id="m2mr5b8famblGcE76xkbmZ">一段时间内过去了多少车</td></tr>
+    <tr data-page-node-id="akfyVPHn1sn1bgUxEjLI75"><td class="c" data-page-node-id="khDmGdFxvU3oEgr3NqnEgF"><b data-page-node-id="JSJQED2zAeQ9CaJHFDG576">Q</b></td><td data-page-node-id="qLEnksG0obb54rHJJEiwGf">排队时长</td><td data-page-node-id="ovIBHnJOEK8WmsZuDdV0AV">排队的车一共等了多久</td></tr>
+  </tbody></table>
+
+  <p data-page-node-id="OODzP6UOBwyMzXy1e4GQHO"><b data-page-node-id="rntF3rNz9ejaHOaScBUrug">锚点</b>：每个指标要填两个数 —— 「底线 b」得 0 分、「优秀 g」得满分。中间按比例算。
+  四项分数再按<b data-page-node-id="jCmFZZaeKPbmBhk9iwXviJ">权重</b>加起来（默认 40/20/20/20），就是这一关的总分。</p>
+
+  <table data-page-node-id="MGJG6MzkZwWmEQ33x11v0K">
+    <tbody data-page-node-id="tYJyLFV5BfJx35ndGt066E"><tr data-page-node-id="I4gjckHzylHFHSpbXSvPqP"><th style="width:100px" data-page-node-id="vB0YVrnDlpQkaHqQ5ULzfN">总分</th><th data-page-node-id="o5q2NLmnGkYdmJsCJasOTb">星级</th></tr>
+    <tr data-page-node-id="lUXMzADnmeFJtZ95mbPrD0"><td data-page-node-id="wMtSpFyGtU2zgHe9qz3GIy">≥ 0.95</td><td data-page-node-id="KvvF6yq0WtalAnuvapynoN">★★★</td></tr>
+    <tr data-page-node-id="SlQ0ZKBojBY4auwdpK9p2S"><td data-page-node-id="230FWlSWEEqZ02pijMMKHq">≥ 0.80</td><td data-page-node-id="R3e5LLhdbsd5b06BxwA9ya">★★</td></tr>
+    <tr data-page-node-id="yFS8JJBCYF8KsQA0QG1m4h"><td data-page-node-id="COuPRVvkTtwfAqzEvgRNhK">≥ 0.60</td><td data-page-node-id="tzsM68rz1YsifsQThg12M0">★</td></tr>
+    <tr data-page-node-id="ydSgOHk1nfAIxKOCFCiR1T"><td data-page-node-id="pl69wrvQRvu75xeKLCoNtS">&lt; 0.60</td><td data-page-node-id="PAvyQZ5eKnAp6v4cwdr1dw">无星</td></tr>
+    <tr data-page-node-id="X6dgHoJ5nkVlzvdK3UgSmD"><td data-page-node-id="ckICBA65KQuxGQoqTJqUAt">发生碰撞</td><td data-page-node-id="kZcmbqTFeCdOozHP0FZvQy"><b data-page-node-id="1u4r366CLKLTnXqS7QkAYm">0 星</b>（直接判失败）</td></tr>
+  </tbody></table>
+
+  <p class="muted" data-page-node-id="AMxxzBrZQIkmF64DH3MERl">这些在编辑器里都能改：不选任何东西 → 关卡面板 →「评分锚点」「指标权重」。</p>
+
+  <h3 data-page-node-id="KpqcEhOJmbrhrTY0AakF1G">事件与教学步骤（可选）</h3>
+  <p data-page-node-id="vo2qTohP5QCWfzyx3l0nQz">关卡可以带「剧本」：第几秒发生什么事（比如某个路口信号坏了、来了救护车），
+  以及开局给玩家的几句引导。这两项在关卡面板的「原始字段」里，是给游戏侧用的，编辑器只负责存。</p>
+</div>
+
+<!-- ══════════ 附录 B ══════════ -->
+<div class="part" id="appendix-b" data-page-node-id="A5UVpf5pbN61cczfTmHGKW">
+  <span class="kicker" data-page-node-id="4z7IK7C4UrDoye6oB5xyCS">A P P E N D I X &nbsp; B</span>
+  <h1 data-page-node-id="U84PHtqswSVnD0PCn375mE">附录 B · 快捷键</h1>
+  <p data-page-node-id="tqhU9LCNrlKCppJhbUDxB6" style="">软件里按 <kbd data-page-node-id="zPTCwyIqa756453pqeDVio">F1</kbd> 随时能查（这里没有全放，建议直接开游戏里的）。</p>
+</div>
+
+<div class="chap" data-page-node-id="3lKBF1GB1qxx7IbUOGbRji">
+  <table data-page-node-id="EMDpULyx3bGa95UVvQJW9F">
+    <tbody data-page-node-id="XhNHAbjfZBZms05QkgCtgE"><tr data-page-node-id="reTQ8U4OVqTbuR5GTrjamN"><th style="width:180px" data-page-node-id="7U5YEvMl1Dvky92PBMZ8RI">键</th><th data-page-node-id="pKg0n7DXxsxY46T62oNHLp">作用</th></tr>
+    <tr data-page-node-id="Z7RTgEgndctEl8D46BZTdJ"><td data-page-node-id="D1DypaHRDYNFQLTAkyvCBe"><kbd data-page-node-id="UT0gv5awJlyiRk1VQGKkrN">1</kbd> <kbd data-page-node-id="RdlQY5ee2vg6R5wewyaWrk">2</kbd> <kbd data-page-node-id="zHXw6JkcOziWiYtsyGQz8J">3</kbd> <kbd data-page-node-id="XsFaEG7JdBsu59eiDyvLCm">4</kbd></td><td data-page-node-id="zIp5ZVS6cUhYCrCDbAAwdi">切模式：道路 / 连接 / 车辆 / 装饰</td></tr>
+    <tr data-page-node-id="6nOGGKBYsBgyf3Kuqr2PzV"><td data-page-node-id="AfNeOfIGxxFelF7GylpC1V"><kbd data-page-node-id="yj0hmcodu2SoohM346xO3V">G</kbd></td><td data-page-node-id="D448HfHYHshnXbpNvBeLOo">（连接模式）给选中路口自动生成全部转向</td></tr>
+    <tr data-page-node-id="QNUrNmN0Sno0Z59QtSj1Lm"><td data-page-node-id="hPW8fUlITfDFwRhch7HICm"><kbd data-page-node-id="U4CV82CIPOPV3E9LYhZMOp">M</kbd></td><td data-page-node-id="1zF6WYMiwOnwPvxNGvlGdI">测量：拉一条线看多长</td></tr>
+    <tr data-page-node-id="ZqnuIDx2LcT5BKsrC0ivRh"><td data-page-node-id="w4HEPMj88woeQi1mrEZLTp"><kbd data-page-node-id="hhEcWgbp9DjMghexFO5Dct">X</kbd></td><td data-page-node-id="hKIK0ef7228EGjhFo7cAAH">格点吸附开关</td></tr>
+    <tr data-page-node-id="htT8BCGIjzXeA2j22cQNVb"><td data-page-node-id="2ais6KrzIp9JFacgUEqFzK"><kbd data-page-node-id="FQzSWzcNHclMLKDGM7i4DR">Ctrl</kbd>+<kbd data-page-node-id="qyClgpB13eDCBIUB5C97n5">Z</kbd> / <kbd data-page-node-id="HyUXcekrFyTGVWnlb82O9q">Ctrl</kbd>+<kbd data-page-node-id="RfJur4JhDcc8JUMjrB5zkD">Y</kbd></td><td data-page-node-id="32xjIrsDM47wOUaEkblayY">撤销 / 重做（能退 100 步）</td></tr>
+    <tr data-page-node-id="JX3UcxivQEB2OkJnQeClvt"><td data-page-node-id="y9clGfRI3UYj9aeBxgAGdO"><kbd data-page-node-id="21D3bHS8l48TeQDsCqxWMZ">Ctrl</kbd>+<kbd data-page-node-id="spvA1vZOL3uPiHHAjkHTvY">S</kbd></td><td data-page-node-id="D1oEn3LtwLfbGBedsy6SuC">保存</td></tr>
+    <tr data-page-node-id="v9vRRIN2xVZUGwVBPczv2k"><td data-page-node-id="h9Ljx7mqP5HJFhOhznbTEj"><kbd data-page-node-id="hcjZ27V0mY5HB25CRZD5IH">Ctrl</kbd>+<kbd data-page-node-id="FSDq8E9bs9DObFlWxUd1RO">E</kbd></td><td data-page-node-id="awVnuLCFBOn5GgrEaXaqCV">导出为其它格式</td></tr>
+    <tr data-page-node-id="keSs5s0B592UfaQ1jhLHjR"><td data-page-node-id="jdOPklafMxmu6dI1xBah2m"><kbd data-page-node-id="pB7CD4NZViyNfYvBtXWemL">Ctrl</kbd>+<kbd data-page-node-id="BcHGX0lFhxBD7Em7o1aAhZ">Shift</kbd>+<kbd data-page-node-id="iIvSvVnAEDdS02lEYH5fmF">E</kbd></td><td data-page-node-id="ueyZvyu1GhC78ufv7yY6f6">切换基础 / 专业模式</td></tr>
+    <tr data-page-node-id="EWwqXtPRN9l2k9euKcfN6R"><td data-page-node-id="p2nleU7f559FLmYoXxxEPC"><kbd data-page-node-id="UBvH85Wfm1L3abJe0KemTa">Delete</kbd></td><td data-page-node-id="bkCvJknSOOf2FaJgoJV8Ix">删掉选中的路 / 路口 / 装饰</td></tr>
+    <tr data-page-node-id="8a8EFGpVBNzSgW3kHvrn0k"><td data-page-node-id="mGHwSx1DBnOXopnEHEUIx6"><kbd data-page-node-id="lU4hWUPuhO6Rc50IUGO3lm">F1</kbd></td><td data-page-node-id="t4mqQVNNjVJZxAh7Iw3gfH">键位表（可搜索）</td></tr>
+    <tr data-page-node-id="IsjmimvNeWGyayTFSnaqeT"><td data-page-node-id="GMa12uoQ9NoV4zIRrtEJPM">滚轮 / 中键拖</td><td data-page-node-id="7ZJmElML5nG2mjElXa6XaD">缩放 / 平移画布</td></tr>
+    <tr data-page-node-id="0KCEZZFuwRWRhcL7quBgwC"><td data-page-node-id="s4w9aERX7P2Nsd0Sftid2y">右键拖</td><td data-page-node-id="Wb7Lm121LHaAnwsW7yJrO9">框选多条路（框一小下 = 切换某条路的选中）</td></tr>
+  </tbody></table>
+</div>
+
+<!-- ══════════ 附录 C ══════════ -->
+<div class="part" id="appendix-c" data-page-node-id="oL7agx9RsZt4ubV820nB25">
+  <span class="kicker" data-page-node-id="dSDyS6zq6R9ZIF2aGOOWFl">A P P E N D I X &nbsp; C</span>
+  <h1 data-page-node-id="nDAffH8gDKOLMgOvnu1W41">附录 C · 出问题了先看这里</h1>
+  <p data-page-node-id="Nmf7DyiCqUpuhh3xYOlB2d">按从常见到少见的顺序排。</p>
+</div>
+
+<div class="chap" data-page-node-id="FUWBn9JSn4So85UR9EAin6">
+  <table data-page-node-id="rQik3HvVhDHD7I4EujGzIY">
+    <tbody data-page-node-id="Yw5pfOLn9dGb9Jg8FFoCOp"><tr data-page-node-id="Ca4LccS6wdrfEaRRfK9R1s"><th style="width:230px" data-page-node-id="vIlyntWjafoCXP5w0mOLWG">现象</th><th data-page-node-id="pI1B9hAb3yPjDUT6pA4SuU">怎么办</th></tr>
+    <tr data-page-node-id="2YLxUKMBoO5RGBtZALTFJO"><td data-page-node-id="08rKfwwILrEAqA43Euwyca">双击 exe 打不开 / 一闪就没了</td><td data-page-node-id="MYxN14bmtIAVPwUh3Ny5Vm">整个文件夹一起拷，别只拷 exe；别放桌面或改文件夹名</td></tr>
+    <tr data-page-node-id="mFE3vDpy6ZD3he0JySxgCW"><td data-page-node-id="zr0biFcXMYOsP7zAwLm5BE">按 <kbd data-page-node-id="V0LHqWHlzABgMR4r0NHLAm">1</kbd>~<kbd data-page-node-id="rGQP937JIe7VoNAEHsKjBH">4</kbd> 不切模式</td><td data-page-node-id="mNgRCdNbEx565mQpboTlRi">焦点在输入框里。点一下画布空白再按</td></tr>
+    <tr data-page-node-id="ZqcTxYr4mhFRwT4GsUDlLW"><td data-page-node-id="YHTX329B9xmSOzub7O0DYu">按 <kbd data-page-node-id="TmfSOAI7yau6sRmnCgQJH4">G</kbd> 没反应</td><td data-page-node-id="rB6TZDkEFTfBfC40SCgtR2">没选路口，或者当前不在连接模式</td></tr>
+    <tr data-page-node-id="61tG0VSeM6Pe8X7m1SySwy"><td data-page-node-id="bgYGO0dBDoZQZgmEdekrtr">双击路口没变成红绿灯</td><td data-page-node-id="EeYVaJcxGA21WZZFGdH6sL">那个点只连着一条路（是路的尽头）。再画一条路经过它</td></tr>
+    <tr data-page-node-id="VnrD4x75o0w3nobXSklF9j"><td data-page-node-id="Yno5KEFhB5eTWayufy5v8s">改完车道数，路口的转向全没了</td><td data-page-node-id="Cj0z365GY12CtbpHjOaLfs">正常。回连接模式再按一次 <kbd data-page-node-id="Xy0znslcbbOfcUaIAljVkc">G</kbd></td></tr>
+    <tr data-page-node-id="RPSmcorH3hoVkPBTWTcuWP"><td data-page-node-id="qptt1W8oOPfCgz7eznFPpn">导出时提示「N 条错误」</td><td data-page-node-id="UVAuFODh1jUzi3Q1TCLs0s">点顶栏的「N 处错误」看清单，点一条会跳到出错的对象</td></tr>
+    <tr data-page-node-id="Fmxrw43cDeqpLDrUwCHBuD"><td data-page-node-id="TfgZnZd30EqO3EmJcWhiKq">勾了 SUMO 格式却没生成文件</td><td data-page-node-id="g751BJUldOFV7qWJKEbAma">多半是体检拦下了。清单里看 <code data-page-node-id="UzAvdb0gPXcyEISp47R4NL">sumo_</code> 开头的条目</td></tr>
+    <tr data-page-node-id="VFZCUOamEklROxsfHM0AE1"><td data-page-node-id="69Sf9D2fgS2upgFNEIR8Iv">试跑结果显示「进车 0 辆」</td><td data-page-node-id="XDm1A3OEf5xc5DiCEGSIhC">需求曲线没配，或者配在了出口车道上</td></tr>
+    <tr data-page-node-id="Bb6p4AaJqxRkGKWZyuSStK"><td data-page-node-id="ZB3D7X0vEup9FZeENQmDSy">试跑显示「传送 N 次」</td><td data-page-node-id="QP6xJpQJQlJ4OtHUgIKKNh">路口死锁或路线走不通。检查配时有没有把所有车都堵死</td></tr>
+    <tr data-page-node-id="hiohgzGaVsgqN67VLJEdlS"><td data-page-node-id="jiKkRT8qdHIaemVt7tSgdS">装饰图片显示成红叉</td><td data-page-node-id="nQssGHNUQUeT3HzdXHzBsF">素材文件被删了或改名了。放回 <code data-page-node-id="xjaj9ypK4GJ7lG3rLKC95T">assets\deco\</code> 再在素材面板点「↻」</td></tr>
+    <tr data-page-node-id="xuNsMGLAedZsQbCR7YRJTE"><td data-page-node-id="WmBVib4Zcpcu4xARq9bGkZ">软件卡死 / 崩溃后重开</td><td data-page-node-id="UZCJEyPYUjjuYly6M8a8z2">会弹窗问「要不要恢复上次」——选恢复就能拿回崩溃前的内容</td></tr>
+  </tbody></table>
+</div>
+
+<hr class="soft" data-page-node-id="m6IygcgjvutjQzwckqdrQt" style="">
+
+
+</div>
+<a class="backtop" href="#top" data-page-node-id="TLs1HmcOmlQM8pKy2xijrG">↑ 回到顶部</a>
+
+
+</body></html>
